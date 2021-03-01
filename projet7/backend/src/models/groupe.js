@@ -1,0 +1,47 @@
+
+var dbConnect =require('../../config/db.config');
+
+const Groupe = function(groupe){
+    this.name_group = groupe.name_group;
+}
+
+//création new groupe
+
+Groupe.createGroupe = (groupeReqData, result)=>{
+    dbConnect.query('INSERT INTO groupelist SET ?', groupeReqData,(err,res)=>{
+        if(err){
+            console.log('err insertion data');
+            result(null,err);
+        }else{
+            console.log('employee crée avec succès');
+            result(null,res)
+        }
+    })
+}
+
+//supprime groupe
+Groupe.deleteGroupe=(id, result)=>{
+    dbConnect.query('DELETE FROM groupelist WHERE id=?',[id],(err,res)=>{
+        if(err){
+            console.log('erreur de supression');
+            result(null, err);
+        }else{
+            result(null,res);
+        }
+    })
+}
+
+//get all employee
+Groupe.getAllGroupe = (result)=>{
+    dbConnect.query('SELECT * FROM groupelist',(err,res)=>{
+        if(err){
+            console.log('error while fetching groupelist',err);
+            result(null,err);
+        }else{
+            console.log('grouplist fetched succes !!');
+            result(null,res);
+        }
+    })
+}
+
+module.exports = Groupe;
