@@ -1,23 +1,31 @@
+<!-- bloc Groupe pour voir ou ajouter un nouveau groupe-->
 <template>
    <div class="groupe">
        <h3>Groupe de travail </h3>
-       <router-link class="new_group" to="/CreateGroup">Ajouter un  groupe</router-link>
+       <button @click="group">nouveau groupe</button>
        <ul v-bind:key="index" v-for="(groupe, index) in groupe">
            <li>{{groupe.name_group}}</li>
        </ul>
-   </div>
-   
+   </div> 
 </template>
 <script>
 import axios from 'axios'
 
 export default {
+    
     name:'Groupe',
     data(){
         return{
-            groupe:null,
-        }
+            groupe:null,   
+        }  
     },
+//fonction pour ouvrir l'ajout du nouveau groupe
+    methods:{
+        group:function(){
+            this.$emit('openGroup',)
+        }, 
+    },
+// Récupère tous les groupes sur la db
     mounted(){
         axios
         .get ('http://localhost:8080/api/groupe')
@@ -31,7 +39,7 @@ export default {
 <style scoped>
 .groupe{
 	width: 14.8%;
-	background: white; /*yellow;*/
+	background: white; 
 	padding-top: 0em;
 	border: 1px solid black;
     }

@@ -1,22 +1,34 @@
 <template >
-    <form class="connexion" >
-        <fieldset>
-            <legend>Connexion</legend>
-            
-            <div class=" mail">
-                <label for="mail">E-mail :</label>
-                <input type="email" id="mail" name="user_mail">
-            </div>
-            <div class="password">
-                <label for="password">Mot de passe :</label>
-                <input type="text" id="password" name="user_password">
-            </div>
-            
-            <button @click="connexion" type="submit">S'inscrire</button>
-        </fieldset>
-    </form>
+    <div>
+        <form class="connexion" >
+            <fieldset>
+                <legend>Connexion</legend>
+                
+                <div class=" mail">
+                    <label for="mail">E-mail :</label>
+                    <input type="email" id="mail" name="user_mail">
+                </div>
+                <div class="password">
+                    <label for="password">Mot de passe :</label>
+                    <input type="text" id="password" name="user_password">
+                </div>
+                <router-link @click="Connexion" to="/Dashboard" type="submit">Se connecter</router-link>
+            </fieldset>
+        </form>
+        <small>Pas encore inscrit : <router-link to="/Inscription">enregistrez-vous !</router-link></small>
+    </div>
 </template>
+<script>
+export default {
+    name:'connexion',
 
+    methods:{
+        Connexion: function(){
+        this.$emit('closeNav')
+        }
+    }
+}
+</script>
 <style scoped lang="scss">
     fieldset{
         width: 30%;
@@ -32,7 +44,6 @@
 
     form{
     margin-top: 10em;
-    margin-bottom: 10em;
     }
 
     #mail{

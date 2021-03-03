@@ -1,22 +1,17 @@
 <template class="Dashboard">
-  <div>
-    <div class="header">
-        <Entete />
-        <CreateGroup />
-        <Profil />
-        <Groupe />
-        <Users/>
-        <Public class="public"/>
-        
-    </div>
- <!--   <div class ="navLeft">
-      
-      
-    </div>
-    <div class="public">
-     <DetailProfil v-if="profilDisplay"/>
-    </div>-->
-  </div> 
+  <div class="Dashboard">
+    <div>
+      <Entete />     
+      <Profil @click ="openProfil"/>
+      <Groupe @click ="openGroup"/>
+      <Users/>
+    </div>     
+    <div class="pop_up">           
+      <Publication class="publication" v-show="publicationDisplay"/> 
+      <DetailProfil @click="closeProfil" v-show="profilDisplay"/>
+      <CreateGroup  v-on:fermer-bloc="closeGroup" v-show="groupeDisplay" />
+</div>         
+  </div>
 </template>
 
 <script>
@@ -24,9 +19,9 @@
   import Profil from '@/components/dash/Profil.vue'
   import Groupe from '@/components/dash/groupe/Groupe.vue'
   import Users from '@/components/dash/Users_connected.vue'
-  import Public from '@/components/dash/Publication.vue'
+  import Publication from '@/components/dash/Publication.vue'
   import CreateGroup from '@/components/dash/groupe/CreateGroup.vue'
- // import DetailProfil from '@/components/dash/DetailProfil.vue'
+  import DetailProfil from '../components/dash/DetailProfil.vue'
  
   export default {
    name: 'Dashboard',
@@ -35,37 +30,64 @@
       Profil,
       Groupe,
       Users,
-      Public,
-      CreateGroup
-    //  DetailProfil
+      Publication,
+      CreateGroup,
+      DetailProfil,
    },
- 
-  /*  el:'.Dashboard',
-    data(){
-      return{
-        haut:true,
-        publicDisplay:true,
-        profilDisplay:false,
-      }
-    },
-    methods:{
-      displayProfil: function(){ 
-        this.publicDisplay = false; 
-        this.profilDisplay = true;
-      },
-    }*/
-  }
 
+    el:'.Dashboard',
+      data(){
+        return{
+          groupeDisplay:false,
+          profilDisplay:false,
+          publicationDisplay:true,
+        }
+      },
+    
+    methods:{
+      //Affichage du pop up creation de groupe
+      openGroup:function(){
+        this.groupeDisplay= true;
+        this.profilDisplay= false;
+        this.publicationDisplay= false
+      },
+      closeGroup:function(){
+        this.groupeDisplay=false; 
+        this.publicationDisplay=true;
+      },
+    
+      // Affichage des détail du profil
+      openProfil:function(){
+        this.profilDisplay= true;
+        this.groupeDisplay=false; 
+        this.publicationDisplay= false;
+      },
+      closeProfil:function(){
+        this.profilDisplay= false;
+        this.publicationDisplay= true;
+      },
+    },
+  }
 </script>
 <style scoped>
 .navLeft{
   width: 100%;
 }
-.public{
+/*
+.publication{
   width: 85%;
   float: right;
-  margin-top:-46.2em;
+  margin-top:-37.9em;
+  border: 2px solid black;
+}*/
+
+.pop_up{
+  border:1px solid green;
+   width:85%;
+   float:right;
+   height:28em; 
+   margin-top:-63.3em;
 }
 
-
 </style>
+

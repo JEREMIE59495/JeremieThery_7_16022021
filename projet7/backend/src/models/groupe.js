@@ -2,18 +2,19 @@
 var dbConnect =require('../../config/db.config');
 
 const Groupe = function(groupe){
-    this.name_group = groupe.name_group;
+    this.name_group = groupe.name_group
+    
 }
 
 //création new groupe
 
 Groupe.createGroupe = (groupeReqData, result)=>{
-    dbConnect.query('INSERT INTO groupelist SET ?', groupeReqData,(err,res)=>{
+    dbConnect.query('INSERT INTO groupelist SET ? ', groupeReqData,(err,res)=>{
         if(err){
             console.log('err insertion data');
             result(null,err);
         }else{
-            console.log('employee crée avec succès');
+            console.log('groupe crée avec succès');
             result(null,res)
         }
     })

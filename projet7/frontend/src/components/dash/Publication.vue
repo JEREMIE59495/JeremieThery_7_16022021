@@ -1,7 +1,7 @@
 <template>
     <section class="publication">
       
-      
+     
         <!-- ici les publication general-->
     </section>
 </template>
@@ -12,15 +12,16 @@ export default {
     name:"mur",
     components:{
      //   PostPublication
-     
-    }
+    
+    },
+
 }
 </script>
 <style scoped>
 .publication{
     width: 100%;
-    height: 31.5em;
+    height:28em;
     border: 1px solid black;
-   
+    
 }
 </style>

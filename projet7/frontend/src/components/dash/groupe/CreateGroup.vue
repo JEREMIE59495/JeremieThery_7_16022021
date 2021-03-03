@@ -1,8 +1,10 @@
+<!--Pop up pour ajouter un nouveau groupe-->
 <template>
     <div>
-        <label for="createGroup">Nom du groupe :</label>
-        <input type="text" class="createGroup" v-model="name_group" >
-        <button  type="submit" @click="addGroup">Enregistrer</button>
+        <label for="createGroup">Nom du groupe : </label>
+        <input type="text" id="createGroup" class="createGroup" v-model="name_group">
+        <button  type="submit" @click="addGroup">Enregistrer</button><br>
+        <button @click="closeGroup">Annuler</button>
     </div>
 </template>
 
@@ -12,58 +14,40 @@
     export default  {
         name:'createGroup',
        data(){
-            return{    
-               name_group :this.name_group
+            return{             
+                  name_group :null,        
             }
         }, 
 
         methods:{
-            addGroup(){
-        /*      const newGroup = this.name_group
-               
-               //newGroup.append('content',this.name_group);
-             console.log(newGroup) ;
-             axios.post ('http://localhost:8080/api/groupe'),newGroup,{
-                 headers:{
-                     'Content-Type':' application/x-www-form-urlencoded',
-                     method: 'post',
-                url:'http://localhost:8081/api/groupe',
-                data: newGroup
-                 }
-             }
-            /* .then((response)=>{
-                 console.log(response)
-             })
-            },*/
-        //
-        
-              axios({
-                   headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-        },
-                 method:'post' ,
-                 url:'http://localhost:8080/api/groupe',
-                 data:{
-                     name_group:this.name_group
-                     }
-                  
-             })  .then((response)=>{
-                 console.log(response)
-              }) 
-            console.log(this.name_group)
+            //fonction pour envoyer le nouveau groupe a la db
+            addGroup(){  
+                axios.post('http://localhost:8080/api/groupe', {
+                    name_group: this.name_group
+                }).then((response)=>{  
+                    console.log(response)
+                })  
+                this.$emit('fermer-bloc')
+            },
+            closeGroup(){
+                this.$emit('fermer-bloc')
             }
-        
-            
         }    
     }
 </script>
 <style scoped>
     div{
-        float:right;
-        width:85%;
-        height:10em;
-        background:yellow;
-        margin-top:50em;
+        height:6em;
+        width:50%;
+        padding-top:2em;
+        margin-top:5em;
+        margin-left:auto;
+        margin-right: auto;
+        text-align:center;
+        border: 3px solid black;
+    }
+    button{
+        margin: 1em;
+       
     }
 </style>

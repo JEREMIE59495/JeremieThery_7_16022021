@@ -1,35 +1,31 @@
-<template>
-  <div id="nav" v-if="navLink">
-    <router-link to="/">Home</router-link> |
+<template v-show="titi">
+  <div id="nav" >
     <router-link to="/Connexion">Connexion</router-link> |
-    <router-link to="/Inscription">Inscription</router-link> |
-    <router-link to="/about">About</router-link> |
-    <router-link to="/Dashboard" @click="dashDisplay">Dashboard</router-link> |
-<Dashboard v-if="dashboardView" />
+    <router-link to="/Inscription">Inscription</router-link> 
   </div>
 
 
  
 </template>
 <script>
-import Dashboard from '@/views/Dashboard.vue'
-
-export default{
-  components: { Dashboard },
-  el:'nav',
-  data(){
+export default {
+  el:'#nav',
+   data(){
     return{
-      navLink:true,
-      dashboardView: false,
+      deconnexion:true,
+      titi:true
     }
-  },
+   },
   methods:{
-    dashDisplay: function(){
-     this.navLink = false;
-     this.dashboardView= false;
+    toto(){
+      this.deconnexion=false;
+      this.titi=false
+      this.$emit('tata')
     }
   }
 }
+
+
 </script>
 
 <style lang="scss">
@@ -42,8 +38,8 @@ export default{
 }
 
 #nav {
-  padding: 30px;
-  background:green;
+  padding: 0.1em;
+  background:white;
   a {
     font-weight: bold;
     color: #2c3e50;

@@ -10,43 +10,19 @@ const routes = [
   {
     path: '/connexion',
     name: 'Connexion',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Connexion.vue')
+    component: () => import('../views/Connexion.vue')
   },
   {
     path: '/inscription',
     name: 'Inscription',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Inscription.vue')
+    component: () => import('../views/Inscription.vue')
   },
   {
     path: '/Dashboard',
     name: 'Dashboard',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Dashboard.vue')
+    component: () => import('../views/Dashboard.vue')
   },
-  {
-  path: '/about',
-  name: 'About',
-  // route level code-splitting
-  // this generates a separate chunk (about.[hash].js) for this route
-  // which is lazy-loaded when the route is visited.
-  component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-},
-{
-  path: '/CreateGroup',
-  name: 'CreateGroup',
-  // route level code-splitting
-  // this generates a separate chunk (about.[hash].js) for this route
-  // which is lazy-loaded when the route is visited.
-  component: () => import(/* webpackChunkName: "about" */ '../components/dash/groupe/CreateGroup.vue')
-}
+
 ]
 
 const router = createRouter({
