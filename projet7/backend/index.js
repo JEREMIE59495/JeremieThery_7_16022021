@@ -1,6 +1,7 @@
 const express = require ('express');
-const bodyParser = require('body-parser')
+//const bodyParser = require('body-parser')
 const app = express();
+const cookieParser = require('cookie-parser');
 
 
 const port = process.env.PORT || 8080;
@@ -12,22 +13,29 @@ app.use((req, res, next) => {
     next();
   });
 
-app.use(bodyParser.urlencoded({extended:false}));
-app.use(bodyParser.json())
+app.use(express.urlencoded({extended:false}));
+app.use(express.json())
+app.use(cookieParser())
 //Definie la route racine
 app.get('/',(req,res)=>{
     res.send('Hello World');
 });
+/*
+app.post('/', (req, res)=> {
+    // do something w/ req.body or req.files 
+});*/
 
 //import route employee
 const employeeRoutes = require('./src/routes/employee');
 const publicationRoutes = require('./src/routes/publication');
 const groupeRoutes = require('./src/routes/groupe');
+const userRoutes= require('./src/routes/user')
+
 //create route employee
 app.use('/api/employee',employeeRoutes)
 app.use('/api/publication',publicationRoutes)
 app.use('/api/groupe',groupeRoutes)
-
+app.use('/api/auth',userRoutes)
 
 //Ecoute du port
 app.listen(port,()=>{

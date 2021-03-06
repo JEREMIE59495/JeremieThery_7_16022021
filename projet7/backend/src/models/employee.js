@@ -1,10 +1,9 @@
 var dbConnect =require('../../config/db.config');
 
 const Employee = function(employee){
-    this.first_name = employee.first_name;
+    this.first_name = this.first_name;
     this.last_name = employee.last_name;
     this.email = employee.email;
-    this.status = employee.status;
     this.password= employee.password 
 }
 
@@ -18,6 +17,7 @@ Employee.getAllEmployees = (result)=>{
             console.log('Employee fetched succes !!');
             result(null,res);
         }
+      
     })
 }
 
@@ -28,7 +28,7 @@ Employee.getOneEmployee = (id, result )=>{
                 console.log('error while fetching employees',err);
                 result(null, err);
             }else{
-                result(null,res);
+             result(null,res);
             }
     })
 }
@@ -38,12 +38,13 @@ Employee.getOneEmployee = (id, result )=>{
 Employee.createEmployee = (employeeReqData, result)=>{
     dbConnect.query('INSERT INTO employees SET ?', employeeReqData,(err,res)=>{
         if(err){
-            console.log('err insertion data');
+            console.log('err insertion datas');
             result(null,err);
         }else{
             console.log('employee crée avec succès');
             result(null,res)
         }
+      
     })
 }
 

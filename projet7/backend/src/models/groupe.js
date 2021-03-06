@@ -2,8 +2,7 @@
 var dbConnect =require('../../config/db.config');
 
 const Groupe = function(groupe){
-    this.name_group = groupe.name_group
-    
+    this.name_group = groupe.name_group  
 }
 
 //création new groupe
