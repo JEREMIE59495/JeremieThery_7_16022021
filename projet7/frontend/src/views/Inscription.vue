@@ -1,32 +1,72 @@
 <template>
     <div>
-        <form class="inscription" action="/ma-page-de-traitement" method="post">
+        <div>
             <fieldset>
                 <legend>Formulaire d'inscription</legend>
                 <div class="name">
                     <label for="name">Nom :</label>
-                    <input type="text" id="name" name="user_name">
+                    <input type="text" id="name" name="first_name" v-model="dataSignup.first_name">
 
                     <label for="surname">Prénom :</label>
-                    <input type="text" id="surname" name="user_surname">
+                    <input type="text" id="surname" name="last_name" v-model="dataSignup.last_name">
                 </div>
 
                 <div class=" mail">
                     <label for="mail">E-mail :</label>
-                    <input type="email" id="mail" name="user_mail">
-
+                    <input type="email" id="mail" name="user_mail" v-model="dataSignup.email">
+                    {{message}}
+                <span>{{message}}</span>
                 </div>
                 <div class="password">
                     <label for="password">Mot de passe :</label>
-                    <input type="text" id="password" name="user_password">
+                    <input type="password" id="password" name="user_password" v-model="dataSignup.password">
                 </div>
                 
-                <button @click="inscription" type="submit">S'inscrire</button>
+                <button @click="signupUser" type="submit">S'inscrire</button>
             </fieldset>
-        </form>
+        </div>
     <small>Déjà inscrit : <router-link to="/Connexion">Connectez-vous !</router-link></small>
+   
     </div>
 </template>
+<script>
+import axios from 'axios';
+export default {
+    name:"inscription",
+    data(){
+        return{
+            dataSignup: {
+                first_name:null,
+                last_name:null,
+                email:null,
+                password:null
+            }
+        }
+    },
+
+            methods:{
+                signupUser:function(){
+                    console.log(this.dataSignup)
+                    if(
+                        this.dataSignup !==null
+                    ){
+                    axios
+                 .post('http://localhost:8080/api/auth/signup', this.dataSignup )
+                    .then(response=>{
+                            location.replace('http://localhost:8081/Connexion')
+                            console.log(response)
+                        })
+                        .catch(error => console.log(error));
+                      } else {     
+                        console.log('Inscription non envoyé !!')
+                       }
+                   }
+                }
+}
+         
+    
+
+</script>
 <style scoped lang="scss">
     fieldset{
         width: 40%;

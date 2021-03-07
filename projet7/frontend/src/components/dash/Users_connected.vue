@@ -29,6 +29,7 @@ export default {
 <style scoped>
 .users_connected{
 	width: 14.8%;
+    height:15em;
 	background: white; 
 	border: 1px solid black;
 	}

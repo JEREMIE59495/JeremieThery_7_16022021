@@ -86,7 +86,8 @@
    width:85%;
    float:right;
    height:28em; 
-   margin-top:-63.3em;
+   margin-top:-31.5em;
+   position :relative;
 }
 
 </style>

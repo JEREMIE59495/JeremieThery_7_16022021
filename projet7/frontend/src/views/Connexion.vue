@@ -1,33 +1,70 @@
 <template >
     <div>
-        <form class="connexion" >
+        <div class="connexion" >
             <fieldset>
                 <legend>Connexion</legend>
                 
                 <div class=" mail">
-                    <label for="mail">E-mail :</label>
-                    <input type="email" id="mail" name="user_mail">
+                    <label for="email">E-mail :</label>
+                    <input type="email" id="email" name="user_mail" v-model="dataLogin.email"><br>
                 </div>
                 <div class="password">
                     <label for="password">Mot de passe :</label>
-                    <input type="text" id="password" name="user_password">
+                    <input type="password" id="password" name="user_password" autocomplete="current-password" v-model="dataLogin.password">
                 </div>
-                <router-link @click="Connexion" to="/Dashboard" type="submit">Se connecter</router-link>
+                <button @click="login" type="submit">Se connecter</button>
+                <router-link to="/Dashboard"> dash </router-link>
             </fieldset>
-        </form>
+        </div>
+        <span> {{err}}</span><br>
         <small>Pas encore inscrit : <router-link to="/Inscription">enregistrez-vous !</router-link></small>
     </div>
 </template>
 <script>
+import axios from 'axios'
+
 export default {
     name:'connexion',
-
-    methods:{
-        Connexion: function(){
-        this.$emit('closeNav')
+    data(){
+        return{
+            dataLogin: {
+                email:null,
+                password:null
+            },
+          err:null
         }
-    }
+    },
+    methods:{
+        
+        login:function(){
+            
+            console.log(this.dataLogin)
+           if(
+                this.email !== null ||
+                this.password !== null
+            ){
+            axios
+            .post('http://localhost:8080/api/auth/login',this.dataLogin
+            )
+            .then(response =>{
+                location.replace('http://localhost:8081/Dashboard')
+                console.log(response)
+                console.log(response.data)
+            })
+            .catch(error =>{
+                    this.err = error.response.data.message
+                 console.log(error.message);
+               
+                 console.log(error.response.data.message);
+            })
+
+        } else {  
+            console.log('echec de la connexion')
+            console.log(this.error)
+        }   
+    }}
 }
+
 </script>
 <style scoped lang="scss">
     fieldset{
@@ -55,5 +92,9 @@ export default {
     .password{
         margin: 0.5em 2em 1em 6.5em;
         text-align: left;
+    }
+    span{
+        color:red;
+        font-weight: bold;
     }
 </style>

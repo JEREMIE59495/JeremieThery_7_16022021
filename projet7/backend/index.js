@@ -20,10 +20,6 @@ app.use(cookieParser())
 app.get('/',(req,res)=>{
     res.send('Hello World');
 });
-/*
-app.post('/', (req, res)=> {
-    // do something w/ req.body or req.files 
-});*/
 
 //import route employee
 const employeeRoutes = require('./src/routes/employee');

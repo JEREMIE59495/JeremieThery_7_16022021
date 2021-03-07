@@ -33,16 +33,15 @@ exports.login = async (req, res)=> {
         const { email, password} = req.body
             if(!email ||!password){
                 console.log(req.body)
-                 return res.status(401).json({error: "utilisateur n'est pas enregistré"})
+                 return res.status(401).json({message:"utilisateur n'est pas enregistré"})
+                 
              }
         
 
         dbConnect.query('SELECT * FROM employees WHERE email = ?', [email], async (error, result) =>{
             console.log(result)
             if(!result || !(await bcrypt.compare(password, result[0].password) )){
-                res.status(401).render('login', {
-                message:' Votre email ou votre mot de passe est incorrecte'
-                })
+                res.status(401).json({message:' Votre email ou votre mot de passe est incorrecte'})
             }else{
                const id = result[0].id;
 
