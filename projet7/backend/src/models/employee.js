@@ -1,11 +1,13 @@
 var dbConnect =require('../../config/db.config');
+var result = require('../controllers/user')
 
 const Employee = function(employee){
-    this.first_name = this.first_name;
-    this.last_name = employee.last_name;
-    this.email = employee.email;
-    this.password= employee.password 
+    this.first_name = result.first_name;
+    this.last_name = resul.temployee.last_name;
+    this.email = result.employee.email;
+    this.password= result.employee.password 
 }
+
 
 //get all employee
 Employee.getAllEmployees = (result)=>{
@@ -14,24 +16,31 @@ Employee.getAllEmployees = (result)=>{
             console.log('error while fetching employees',err);
             result(null,err);
         }else{
-            console.log('Employee fetched succes !!');
+            console.log('Données employees chargées avec succes !!');
             result(null,res);
         }
       
     })
 }
-
+//console.log('tatata',id)
 //get One employee
-Employee.getOneEmployee = (id, result )=>{
-    dbConnect.query('SELECT * FROM employees WHERE id=?',id,(err,res)=>{
+var userId={userId}
+          console.log('tatata',userId)
+Employee.getOneEmployee = (req,result )=>{
+ // var userId={userId}
+          console.log(req)
+          
+            dbConnect.query('SELECT * FROM employees WHERE id=?',[req],(err,res)=>{
             if(err){
                 console.log('error while fetching employees',err);
                 result(null, err);
             }else{
-             result(null,res);
+              
+            result(null,res);
             }
-    })
-}
+        })
+},
+         
 
 //création new models
 

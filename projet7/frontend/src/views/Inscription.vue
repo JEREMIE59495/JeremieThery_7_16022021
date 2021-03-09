@@ -22,11 +22,11 @@
                     <input type="password" id="password" name="user_password" v-model="dataSignup.password">
                 </div>
                 
-                <button @click="signupUser" type="submit">S'inscrire</button>
+                <button @click="signupUser" type="submit">S'inscrire</button><br>
+                <small>Déjà inscrit : <router-link to="/Connexion">Connectez-vous !</router-link></small>
             </fieldset>
         </div>
-    <small>Déjà inscrit : <router-link to="/Connexion">Connectez-vous !</router-link></small>
-   
+   <span> {{err}}</span>
     </div>
 </template>
 <script>
@@ -40,7 +40,8 @@ export default {
                 last_name:null,
                 email:null,
                 password:null
-            }
+            },
+           
         }
     },
 
@@ -56,7 +57,10 @@ export default {
                             location.replace('http://localhost:8081/Connexion')
                             console.log(response)
                         })
-                        .catch(error => console.log(error));
+                        .catch(error =>{
+                    this.err = error.response.data.message
+                 console.log(error.message);
+            })
                       } else {     
                         console.log('Inscription non envoyé !!')
                        }

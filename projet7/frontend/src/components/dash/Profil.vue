@@ -4,29 +4,50 @@
 		<div class="photo"></div>
 		<p class= "text">Bonjour THERY Jérémie</p>
 		<button class="btn_profil" @click="displayProfil"> Voir profil</button>
+	
 	</div>
 </template>
 
 <script>
+import jwt_decode from'jwt-decode'
+import axios from 'axios'
+
+
 export default {
 	name: 'Profil',
 	el:'.profil',
+	//employee:null,
     data(){
       return{
         haut:true,
         publicDisplay:true,
         profilDisplay:false,
-      }
+		employee:null,
+		userId:null
+      }  
     },
  //fonction pour ouvrir le detail du profil
     methods:{
         displayProfil:function(){
             this.$emit('openProfil',)
         }, 
-    },
-    
-}
 
+    },
+	mounted(){
+		const toto = localStorage.getItem('userInfo')
+		var decode = jwt_decode(toto)
+		let userId= decode.id
+		console.log ('jeton decodé :' ,userId)
+
+        axios
+        .get ('http://localhost:8080/api/employee/'+ userId)
+        .then((response) => {	
+            this.userId=userId
+		console.log(response)
+		console.log(userId)
+        });
+    }, 
+}
 </script>
 <style scoped>
 div{

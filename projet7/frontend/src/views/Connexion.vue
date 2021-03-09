@@ -12,12 +12,11 @@
                     <label for="password">Mot de passe :</label>
                     <input type="password" id="password" name="user_password" autocomplete="current-password" v-model="dataLogin.password">
                 </div>
-                <button @click="login" type="submit">Se connecter</button>
-                <router-link to="/Dashboard"> dash </router-link>
+                <button @click="login" type="submit">Se connecter</button><br>
+                        <small>Pas encore inscrit : <router-link to="/Inscription">enregistrez-vous !</router-link></small>
             </fieldset>
         </div>
-        <span> {{err}}</span><br>
-        <small>Pas encore inscrit : <router-link to="/Inscription">enregistrez-vous !</router-link></small>
+        <span> {{err}}</span>
     </div>
 </template>
 <script>
@@ -37,7 +36,6 @@ export default {
     methods:{
         
         login:function(){
-            
             console.log(this.dataLogin)
            if(
                 this.email !== null ||
@@ -47,17 +45,19 @@ export default {
             .post('http://localhost:8080/api/auth/login',this.dataLogin
             )
             .then(response =>{
+                localStorage.setItem('userInfo',response.data.token,)
                 location.replace('http://localhost:8081/Dashboard')
                 console.log(response)
                 console.log(response.data)
             })
             .catch(error =>{
-                    this.err = error.response.data.message
-                 console.log(error.message);
-               
-                 console.log(error.response.data.message);
+                this.err = error.response.data.message
+              console.log(error.message);
+                // console.log(error.response.data.message);
             })
 
+
+          
         } else {  
             console.log('echec de la connexion')
             console.log(this.error)

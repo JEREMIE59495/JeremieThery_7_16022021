@@ -31,7 +31,7 @@ export default {
         .get ('http://localhost:8080/api/groupe')
         .then((response) => {
             this.groupe = response.data;
-        console.log(this.groupe)
+     //   console.log(this.groupe)
         });
     },
 }

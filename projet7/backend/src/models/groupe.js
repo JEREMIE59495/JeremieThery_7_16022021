@@ -38,7 +38,7 @@ Groupe.getAllGroupe = (result)=>{
             console.log('error while fetching groupelist',err);
             result(null,err);
         }else{
-            console.log('grouplist fetched succes !!');
+            console.log('Liste des groupes chargée succès !!');
             result(null,res);
         }
     })

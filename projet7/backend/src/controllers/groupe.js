@@ -3,19 +3,17 @@ const groupeModel = require ('../models/groupe');
 
 //get tous groupes
 exports.getAllGroupe = (req, res)=>{
-    // console.log('ici la liste des  employées')
     groupeModel.getAllGroupe((err,groupelist)=>{
-        console.log('nous sommes ici');
         if(err)
         res.send(err);
-        console.log('Groupelist',groupelist);
+    //    console.log('Groupelist',groupelist);
          res.send(groupelist);
     }) 
  }
 //création new groupe
 
 exports.createNewGroupe = (req,res)=> {
-    console.log(req.body)
+   // console.log(req.body)
     const groupeReqData = new groupeModel(req.body);
     console.log('donnée envoyée =>',groupeReqData);
     if(req.body.constructor === Object && Object(req.body).lenght === 0){

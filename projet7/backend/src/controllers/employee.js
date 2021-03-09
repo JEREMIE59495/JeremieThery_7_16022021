@@ -4,23 +4,22 @@ const employeeModel = require ('../models/employee');
 exports.getEmployeeList = (req, res)=>{
    // console.log('ici la liste des  employées')
    employeeModel.getAllEmployees((err,employees)=>{
-       console.log('nous sommes ici');
        if(err)
        res.send(err);
-       console.log('Employees',employees);
+   //    console.log('Employees',employees);
         res.send(employees);
    })
 }
 
-// un seul employé
+// un seul employé deplaceé vers user controllers
 exports.getOneEmployee =(req,res)=>{
-    console.log('voir 1 employee')
+    console.log('cici' ,req.params)
     employeeModel.getOneEmployee(req.params.id, (err,employee)=>{
         if(err)
         res.send(err);
-        console.log('single employe data',employee);
+     //   console.log(req.params.id);
         res.send(employee);
-        
+    //  console.log(employee)
     })
 }
 
