@@ -55,9 +55,6 @@ export default {
               console.log(error.message);
                 // console.log(error.response.data.message);
             })
-
-
-          
         } else {  
             console.log('echec de la connexion')
             console.log(this.error)

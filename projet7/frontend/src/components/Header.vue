@@ -3,9 +3,6 @@
     <router-link to="/Connexion">Connexion</router-link> |
     <router-link to="/Inscription">Inscription</router-link> 
   </div>
-
-
- 
 </template>
 <script>
 export default {

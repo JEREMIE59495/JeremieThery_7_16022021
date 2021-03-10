@@ -13,7 +13,7 @@ exports.getEmployeeList = (req, res)=>{
 
 // un seul employé deplaceé vers user controllers
 exports.getOneEmployee =(req,res)=>{
-    console.log('cici' ,req.params)
+   // console.log('cici' ,req.params)
     employeeModel.getOneEmployee(req.params.id, (err,employee)=>{
         if(err)
         res.send(err);
@@ -51,7 +51,7 @@ exports.modifyEmployee = (req,res)=>{
         employeeModel.modifyEmployee(req.params.id, employeeReqData,(err, employee)=>{
             if(err)
                 res.send(err);
-                res.json({status: true, message: 'Employee modifié avec succès !!'})   
+                res.json({status: true, message: 'Employee modifié avec succès !!',data: employee})   
         })
     }
 }

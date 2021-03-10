@@ -2,30 +2,35 @@
 <template>	
 	<div>
 		<div class="photo"></div>
-		<p class= "text">Bonjour THERY Jérémie</p>
+		<p class= "text">Bonjour  {{user.first_name}} {{user.last_name}}</p>
+		{{user.userId}}
 		<button class="btn_profil" @click="displayProfil"> Voir profil</button>
 	
 	</div>
 </template>
 
 <script>
-import jwt_decode from'jwt-decode'
-import axios from 'axios'
+//import axios from 'axios'
+import {mapState} from 'vuex'
 
 
 export default {
 	name: 'Profil',
 	el:'.profil',
-	//employee:null,
     data(){
       return{
         haut:true,
         publicDisplay:true,
         profilDisplay:false,
-		employee:null,
-		userId:null
-      }  
-    },
+	//	employee:null,
+	//	userId:null,
+	//	name:null
+      }
+		
+	},
+computed:{
+	...mapState(['user'])
+},
  //fonction pour ouvrir le detail du profil
     methods:{
         displayProfil:function(){
@@ -34,18 +39,7 @@ export default {
 
     },
 	mounted(){
-		const toto = localStorage.getItem('userInfo')
-		var decode = jwt_decode(toto)
-		let userId= decode.id
-		console.log ('jeton decodé :' ,userId)
-
-        axios
-        .get ('http://localhost:8080/api/employee/'+ userId)
-        .then((response) => {	
-            this.userId=userId
-		console.log(response)
-		console.log(userId)
-        });
+		this.$store.dispatch('getInfoUser')
     }, 
 }
 </script>

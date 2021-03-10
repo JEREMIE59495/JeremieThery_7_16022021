@@ -1,11 +1,13 @@
 var dbConnect =require('../../config/db.config');
-var result = require('../controllers/user')
+//var result = require('../controllers/employee')
+const bcrypt = require('bcrypt')
+ 
 
 const Employee = function(employee){
-    this.first_name = result.first_name;
-    this.last_name = resul.temployee.last_name;
-    this.email = result.employee.email;
-    this.password= result.employee.password 
+    this.first_name = employee.first_name;
+    this.last_name = employee.last_name;
+    this.email = employee.email;
+    this.password= employee.password 
 }
 
 
@@ -22,14 +24,8 @@ Employee.getAllEmployees = (result)=>{
       
     })
 }
-//console.log('tatata',id)
-//get One employee
-var userId={userId}
-          console.log('tatata',userId)
+
 Employee.getOneEmployee = (req,result )=>{
- // var userId={userId}
-          console.log(req)
-          
             dbConnect.query('SELECT * FROM employees WHERE id=?',[req],(err,res)=>{
             if(err){
                 console.log('error while fetching employees',err);
@@ -57,10 +53,12 @@ Employee.createEmployee = (employeeReqData, result)=>{
     })
 }
 
-//mofier employé
+//modifier employé
 Employee.modifyEmployee=(id,employeeReqData, result)=>{
-    dbConnect.query("UPDATE employees SET first_name=?, last_name=?, email=? ,status=? ,password=? WHERE id = ?",
-     [employeeReqData.first_name,employeeReqData.last_name,employeeReqData.email,employeeReqData.status,employeeReqData.password,id],(err, res)=>{
+    let hashedPassword =  bcrypt.hashSync(employeeReqData.password,5)
+    console.log(hashedPassword)
+    dbConnect.query("UPDATE employees SET first_name=?, last_name=?, email=? ,password=? WHERE id = ?",
+    [employeeReqData.first_name,employeeReqData.last_name,employeeReqData.email,hashedPassword,id],(err, res)=>{
         if(err){
             console.log('erreur lors de la modification');
             result(null,err);

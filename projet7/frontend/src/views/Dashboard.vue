@@ -8,7 +8,7 @@
     </div>     
     <div class="pop_up">           
       <Publication class="publication" v-show="publicationDisplay"/> 
-      <DetailProfil @click="closeProfil" v-show="profilDisplay"/>
+      <DetailProfil v-on:closeProfil="closeProfil" v-show="profilDisplay"/>
       <CreateGroup  v-on:fermer-bloc="closeGroup" v-show="groupeDisplay" />
 </div>         
   </div>
@@ -86,7 +86,7 @@
    width:85%;
    float:right;
    height:28em; 
-   margin-top:-31.5em;
+   margin-top:-48.2em;
    position :relative;
 }
 
