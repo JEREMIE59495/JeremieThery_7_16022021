@@ -11,6 +11,16 @@ exports.getAllPublication = (req, res)=>{
         res.send(publication);
    })
 }
+exports.getOnePublication =(req,res)=>{
+    console.log('back ctrl pub L16 :',req)
+    publicationModel.getOnepublication(req.params.id, (err,employee)=>{
+        if(err)
+        res.send(err);
+     //   console.log(req.params.id);
+        res.send(employee);
+    //  console.log(employee)
+    })
+}
 
  
 

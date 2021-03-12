@@ -15,18 +15,23 @@
         name:'createGroup',
        data(){
             return{             
-                  name_group :null,        
+                  name_group :null,
+                        
             }
         }, 
 
         methods:{
             //fonction pour envoyer le nouveau groupe a la db
             addGroup(){  
+                const id_groupe = this.name_group.slice(0,5)+'_'+Date.now()
+                console.log(id_groupe)
                 axios.post('http://localhost:8080/api/groupe', {
-                    name_group: this.name_group
+                    name_group: this.name_group,
+                    id_groupe
                 }).then((response)=>{  
                     console.log(response)
                 })  
+                document.location.reload();
                 this.$emit('fermer-bloc')
             },
             closeGroup(){

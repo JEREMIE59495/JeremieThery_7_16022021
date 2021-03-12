@@ -13,7 +13,7 @@ exports.getAllGroupe = (req, res)=>{
 //création new groupe
 
 exports.createNewGroupe = (req,res)=> {
-   // console.log(req.body)
+    console.log(req.body)
     const groupeReqData = new groupeModel(req.body);
     console.log('donnée envoyée =>',groupeReqData);
     if(req.body.constructor === Object && Object(req.body).lenght === 0){

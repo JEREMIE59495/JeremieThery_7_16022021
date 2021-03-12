@@ -5,7 +5,7 @@ const employeeModel = require ('../models/employee');
 //const jwtUtils = require ('../utils/jwt.utils')
 
 exports.signup=(req, res)=>{
-    
+    console.log(req)
     const {first_name, last_name, email, password, isAdmin} = req.body;
     dbConnect.query('SELECT email FROM employees WHERE email =?',[email], async(error, result) =>{
         if(error){
@@ -18,14 +18,14 @@ exports.signup=(req, res)=>{
             })
         }
         let hashedPassword = await bcrypt.hash(password,5)
-    console.log(hashedPassword)
+        console.log(hashedPassword)
         dbConnect.query('INSERT INTO employees SET ?',{first_name: first_name, last_name: last_name, email: email, password: hashedPassword, isAdmin:'0'}, (error, result)=>{
             if(error){
                 console.log(error);
             } else{
                // console.log(result)
             }
-        res.send('envoyer')
+            res.send('envoyer')
         });
     })
 }

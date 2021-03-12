@@ -2,8 +2,8 @@
   <div class="Dashboard">
     <div>
       <Entete />     
-      <Profil @click ="openProfil"/>
-      <Groupe @click ="openGroup"/>
+      <Profil v-on:openProfil="showTheProfil"/>
+      <Groupe v-on:openGroup='showNewGroup' />
       <Users/>
     </div>     
     <div class="pop_up">           
@@ -46,18 +46,18 @@
     
     methods:{
       //Affichage du pop up creation de groupe
-      openGroup:function(){
+      showNewGroup(){
         this.groupeDisplay= true;
         this.profilDisplay= false;
         this.publicationDisplay= false
       },
-      closeGroup:function(){
+      closeGroup(){
         this.groupeDisplay=false; 
         this.publicationDisplay=true;
       },
     
       // Affichage des détail du profil
-      openProfil:function(){
+      showTheProfil(){
         this.profilDisplay= true;
         this.groupeDisplay=false; 
         this.publicationDisplay= false;
@@ -82,11 +82,10 @@
 }*/
 
 .pop_up{
-  border:1px solid green;
    width:85%;
    float:right;
    height:28em; 
-   margin-top:-48.2em;
+   margin-top:-40.5em;
    position :relative;
 }
 

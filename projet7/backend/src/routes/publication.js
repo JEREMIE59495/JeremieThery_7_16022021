@@ -8,5 +8,5 @@ router.get('/', PublicationController.getAllPublication);
 router.post('/', PublicationController.createNewPublication);
 router.put('/:id', PublicationController.modifyPublication);
 router.delete('/:id', PublicationController.deletePublication);
-
+router.get('/:id', PublicationController.getOnePublication);
 module.exports = router;

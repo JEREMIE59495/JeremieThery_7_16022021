@@ -69,14 +69,34 @@ export default {
     methods:{
       
       updateClose(){
+        if(this.first_name == null){
+         this.first_name=this.$store.state.user.first_name
+      console.log(this.first_name)
+      }
+      if(this.last_name == null){
+         this.last_name=this.$store.state.user.last_name
+      console.log(this.last_name)
+      }
+      if(this.email == null){
+         this.email=this.$store.state.user.email
+      console.log(this.email)
+      }
+  if(this.password == null){
+         this.password=this.$store.state.user.password
+      console.log(this.password)
+      }
           const token = localStorage.getItem('userInfo')
           var decode = jwt_decode(token)
           let userId= decode.id
       
       //modification du profil
-      axios
+     
+     axios
+    
         .put('http://localhost:8080/api/employee/'+ userId,   
-        {
+       
+       {
+
               first_name:this.first_name,
               last_name:this.last_name,
               email:this.email,
