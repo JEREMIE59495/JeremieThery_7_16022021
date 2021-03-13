@@ -1,6 +1,6 @@
 <template>
     <div class='users_connected'>
-		<h3>Utilisateur connectés</h3>
+		<h4>Contacts</h4>
         <ul v-bind:key="index" v-for="(userConnected, index) in userConnected">
            <li>{{userConnected.first_name}} {{userConnected.last_name}}</li>
        </ul>
@@ -28,20 +28,24 @@ export default {
 </script>
 <style scoped>
 .users_connected{
-	width: 14.8%;
-    height:15em;
-	background: white; 
-	border: 1px solid black;
-	}
-h3{
-	margin: 0;
+	width: 22%;
+    height:30em;
+	background: rgba(175, 175, 175, 0.075);
+	border-radius:1em;
+    float:right;
+    margin-top:-27em;
+}
+
+h4{
+	margin: 1em 0em 0em 2em;
+    text-align: left;
 	}
 li{
 	text-align: left;
 	width:100%;
 	list-style:none;
-	font-size:0.8em;
-	margin:0;
+	font-size:1em;
+	margin-left:1em;
 	padding:0;
 }
 </style>

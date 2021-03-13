@@ -15,7 +15,7 @@ export default new Vuex.Store({
       last_name:'NC',
       email:'NC',
       password:'NC',
-      isAdmin:false
+      isAdmin:'NC',
     },
     changeOption:''
   },
@@ -27,7 +27,9 @@ export default new Vuex.Store({
       state.user.email = email,
       state.user.password = password,
       state.user.isAdmin = isAdmin 
+      console.log(this.state.user.password)
     }, 
+    
     modifOption(state,value) {
       state.changeOption = value
     }
@@ -46,6 +48,7 @@ export default new Vuex.Store({
       .get ('http://localhost:8080/api/employee/'+ userId)
       .then(response => {
         valeur.commit('userInfo',[response.data[0].id,response.data[0].first_name,response.data[0].last_name,response.data[0].email,response.data[0].isAdmin]	)   
+        console.log(response.data[0].isAdmin)
       })
       .catch(error => {
         console.log(error); 
@@ -54,9 +57,6 @@ export default new Vuex.Store({
     changeParam(contexte, value) {
       contexte.commit('modifOption',value)
     } 
-    
-
-
   },
   modules: {
   }

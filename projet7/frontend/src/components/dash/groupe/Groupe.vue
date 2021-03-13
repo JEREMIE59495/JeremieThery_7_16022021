@@ -1,12 +1,16 @@
 <!-- bloc Groupe pour voir ou ajouter un nouveau groupe-->
 <template>
     <div class="groupe">
-        <h3>Groupe de travail </h3>
-        <button @click="group">Nouveau groupe</button>
+        <h3>Groupes</h3>
         <div class="listGroup">
             <ul>
-                <button class="btn_groupe" v-bind:key="index" v-for="(groupe,index) in groupe" @click='showThisPublication(groupe.id_groupe)'>{{groupe.name_group}}</button>
+                
+                <button class="btn_groupe" v-bind:key="index" v-for="(groupe,index) in groupe" @click='showThisPublication(groupe.id_groupe)'><img class="logo">{{groupe.name_group}}</button>
             </ul>
+       </div>
+       <div class=" addNewGroup" @click="group">
+              <i class="fas fa-plus"></i>
+              <p>Créer un groupe</p>
        </div>
    </div> 
 </template>
@@ -48,32 +52,29 @@
 
 <style scoped>
     .groupe{
-        width: 14.8%;
-        height: 15.6em;
-        background: white; 
+        width: 22%;
+        height: 20.6em;
         padding-top: 0em;
-        border: 1px solid black;
     }
 
     .listGroup{
-        height: 11.4em;
-        overflow-y: scroll; 
-        border-top: 1px solid grey;
+        display: flex;
+        flex-direction: column;
         margin-top:0.5em;
+        padding-left:2em;
     }
 
     h3{
-        margin: 0;
-        margin-bottom: 0.8em;
+        text-align: left;
+        margin:1em 0em 0.5em 2em;
     }
 
-    .new_group{
+  /*  .new_group{
         padding: 0.5em 1.8em ;
-        background:pink;
         text-decoration: none;
         color: black;
         font-weight: bold;
-    }
+    }*/
 
     .btn_groupe{
         font-size:1em;
@@ -81,10 +82,33 @@
         width:10em;
         text-decoration: none;
         border:none;
+        text-align:left;
         margin-bottom:0.5em;
+        float:left
     }
 
     ul{
-        padding:0;
+        padding:0em;
+    }
+
+    .addNewGroup{
+        padding-left:2em;
+        display:flex
+    }
+
+    .fa-plus{
+        margin-right:1em;
+    }
+
+    p{
+        margin:0em
+    }
+
+    .logo{
+        width: 1.5em;
+        height:1.5em;
+        border-radius: 0.5em;
+        margin-right:1em;
+        background: lightsalmon;
     }
 </style>

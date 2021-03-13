@@ -2,16 +2,10 @@
     <section>
 
         <!--Titre du groupe -->
-        <h1>Page général</h1>
-
-        <!--Boutton d'ouverture du formualaire-->
-        <button class="bloc_bouton_ajout" v-show="bouton_ajout" @click="openBlocComment">
-        Ajouter une publication
-        </button>
-
+        <h1>Fil d'actualité </h1>
          <!-- Formulaire de publication-->
-        <div class="addComment" v-show="showComment">
-            <h3>Ajouter un commentaire</h3>
+        <div class="addComment">
+            <h3>Ajouter une publication</h3>
             <div class="add-title">
                 <h4>Titre</h4>
                 <input class="input_text" placeholder="Titre de votre publication" v-model="titleOfComment">
@@ -32,7 +26,7 @@
             <div class='commentaire'>
                 {{publication.comment}}
             </div> 
-            <div class="bloc_admin" >
+            <div class="bloc_admin" v-if='user.password >=1'>
                 <button class="btn_admin">Bloquer</button>
                 <button class="btn_admin">Autoriser</button>
             </div>
@@ -42,7 +36,7 @@
 
 <script>
 import axios from'axios'
-import { mapState } from 'vuex'
+import {mapState} from 'vuex'
 export default {
     name:"mur",
     data(){
@@ -51,8 +45,7 @@ export default {
             textOfComment:null,
             titleOfComment:null,
             publication:null,
-            bouton_ajout:true,
-            showComment:false
+            bouton_ajout:true,  
         }
     },
     computed: {
@@ -62,7 +55,9 @@ export default {
         },
     },
     methods:{
-        openBlocComment(){
+
+     
+     /*   openBlocComment(){
             this.showComment= true,
             this.bouton_ajout= false
         },
@@ -70,7 +65,7 @@ export default {
         closeBlocComment(){
             this.showComment= false,
             this.bouton_ajout= true
-        },
+        },*/
 
         PublieComment(){  
             const clicGroup = localStorage.getItem('id_group')     
@@ -96,9 +91,9 @@ export default {
             .then((response) => {
                 this.publication = response.data;
                 console.log('voila' , this.publication)
-                console.log(this.name_group)
+                console.log(this.user.password)
                 })
-            } 
+    } ,
 }
 </script>
 <style scoped>
@@ -106,7 +101,7 @@ export default {
     width: 100%;
     height:38em;
      overflow-y:scroll;
-    border: 1px solid black;
+  /*  border: 1px solid black;*/
 }
 
 h3{
@@ -117,8 +112,17 @@ h3{
 input{
     width:100%;
     margin-bottom:1em;
+    border:1px solid grey;
+    border-radius:0.3em;
+    float:left;
 }
-
+.add-comment{
+    padding-top:0.5em;
+    text-align:left;
+}
+.toto{
+    width:100%;
+}
 h4{
     margin:0em;
     text-align:left;
@@ -136,13 +140,18 @@ h4{
 
 .addComment{
     padding:0em 4em 0em 4em;
-    border:2px solid red;
+    border:1px solid grey;
     height:12em;
+    margin-left:0.6em;
+    margin-right:0.6em;
+    border-radius:0.5em;
+    background: rgba(175, 175, 175, 0.301)
 }
 
 textarea{
     width:100%;
     height:3em;
+     border-radius:0.5em;
     resize: none;
 }
 
@@ -163,20 +172,25 @@ textarea{
 .id_groupe_publication{
     margin-left:50%;
 }
+
 .bloc-commentaire{
     border: 1px solid grey;
-    width:98%;
-    margin:0.5em 0.5em 1em 0.5em ;
+    width:90%;
+    margin-left:auto;
+    margin-right: auto;
+    margin-bottom: 0.5em ;
+    margin-top:1em;
     border-radius:0.4em;
+    background:white;
 }
 .commentaire{
     padding:0.5em;
-    border-bottom:1px solid black;
     border-top:1px solid black;
 }
 .bloc_admin{
     width:100%;
   text-align:right; 
+  border-top:1px solid black;
 }
 .btn_admin{
     

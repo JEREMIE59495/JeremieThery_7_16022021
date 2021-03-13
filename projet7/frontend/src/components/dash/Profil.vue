@@ -1,11 +1,16 @@
 
 <template>	
-	<div>
-		<div class="photo"></div>
-		<p class= "text">Bonjour  {{user.first_name}} {{user.last_name}}</p>
-		{{user.userId}}
-		<button class="btn_profil" @click="displayProfil"> Voir profil</button>
-	
+	<div class="bloc_profil">
+		<div class= "profil">
+			<div class="photo"></div>
+			<p class= "text">{{user.first_name}} {{user.last_name}}</p>
+			<i class="fas fa-pen"  @click="displayProfil"></i>
+		</div>
+		<div class="divers_profil">
+			<a><i class="far fa-newspaper"></i>Fil d'actualité</a><br>
+			<a><i class="far fa-calendar-alt"></i>Evenement</a><br>
+			<a><i class="fas fa-address-book"></i>Annuaire</a>
+		</div>
 	</div>
 </template>
 
@@ -44,28 +49,75 @@ computed:{
 }
 </script>
 <style scoped>
-div{
-	width: 14.8%;
-	height: 14em;
-	background: white; /*yellow;*/
-	padding-top: 2em;
-	border: 1px solid black;
+	.profil{
+		height: 4em;
+		padding-top: 2em;
+		display:flex;
 	}
+
 	.photo{
-		width: 7em;
-		height: 5em;
+		width: 2em;
+		height: 2em;
 		background: grey;
-		margin-left: auto;
-		margin-right: auto;
+		margin-left: 1em;
+		margin-right: 1em;
 		border-radius: 4em;	
 	}
 	
 	.text{
-		margin-top: 1em;
+		margin-top: 0.5em;
 		text-align: center;
 	}
 
 	.btn_profil{
-		margin-top: 1.5em;
+		margin-top:0em;
+		height:2em;
 	}
+
+	.bloc_profil{
+		width:22%;
+		display:flex;
+		flex-direction: column;
+	}
+
+	.divers_profil{
+		padding-left:1em;
+		text-align: left;
+		width:100%;
+	}
+
+	.fa-address-book{
+		background:white;
+		color:rgb(37, 167, 11);
+		font-size:1.3em;
+		margin-right:0.5em;
+		margin-bottom:0.5em;
+	}
+
+	.fa-pen{
+		height:1em;
+		width:1em;
+		padding:0.2em;
+		background:white;
+		border-radius:0.3em;
+		margin-left:1em;
+		margin-top:0.2em;
+	}
+
+	.fa-calendar-alt{
+		background:white;
+		color:rgb(169, 27, 204);
+		font-size:1.3em;
+		margin-right:0.5em;
+		margin-bottom:0.5em;
+	}
+	
+	.fa-newspaper{
+		background:white;
+		color:blue;
+		font-size:1.3em;
+		margin-right:0.5em;
+		margin-bottom:0.5em;
+	}
+	
 </style>

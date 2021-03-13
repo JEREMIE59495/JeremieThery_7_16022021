@@ -1,5 +1,5 @@
 <template class="Dashboard">
-  <div class="Dashboard">
+  <div class="dashboard">
     <div>
       <Entete />     
       <Profil v-on:openProfil="showTheProfil"/>
@@ -80,14 +80,19 @@
   margin-top:-37.9em;
   border: 2px solid black;
 }*/
+.dashboard{
+  background: rgba(240, 242, 245);
+}
 
 .pop_up{
-   width:85%;
-   float:right;
-   height:28em; 
-   margin-top:-40.5em;
-   position :relative;
+  width:55%;
+  margin-left:auto;
+  margin-right:auto; 
+  margin-top:-29.4em;
+  position :relative;
+  background: rgba(175, 175, 175, 0.075)
 }
+
 
 </style>
 

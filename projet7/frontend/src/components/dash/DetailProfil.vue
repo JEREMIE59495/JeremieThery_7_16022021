@@ -22,7 +22,7 @@
             <button @click='modifyP'><i class="fas fa-pen"></i></button>
         </p>
       
-        <button class='envoyer' type="submit" @click="updateClose">Enregistré</button>
+        <button class='envoyer' type="submit" @click="updateClose">Enregistrer</button>
         <button class='supprimer' type="submit" @click ="deleteAccount">Supprimer le compte</button>
         
     </div>        
@@ -49,16 +49,11 @@ export default {
           email: null,
           password:null
           
-        }
-        
-
-        
-
-        
+        }    
       },
       computed:{
 	...mapState(['user']),
-   trucinfo(){
+   infoUser(){
        return this.$store.state.user
       
    },
@@ -71,18 +66,22 @@ export default {
       updateClose(){
         if(this.first_name == null){
          this.first_name=this.$store.state.user.first_name
+         document.location.reload
       console.log(this.first_name)
       }
       if(this.last_name == null){
          this.last_name=this.$store.state.user.last_name
+         document.location.reload
       console.log(this.last_name)
       }
       if(this.email == null){
          this.email=this.$store.state.user.email
+         document.location.reload
       console.log(this.email)
       }
   if(this.password == null){
          this.password=this.$store.state.user.password
+         document.location.reload
       console.log(this.password)
       }
           const token = localStorage.getItem('userInfo')
@@ -94,9 +93,7 @@ export default {
      axios
     
         .put('http://localhost:8080/api/employee/'+ userId,   
-       
        {
-
               first_name:this.first_name,
               last_name:this.last_name,
               email:this.email,
@@ -108,6 +105,7 @@ export default {
           this.modifyLastName=false
           this.modifyEmail=false
           this.modifypassword=false
+  
       },
 
       deleteAccount() {
@@ -151,6 +149,11 @@ div{
     margin-left:auto;
     margin-right: auto;
     text-align:center;
+}
+
+.formModifProfil{
+     background: rgba(160, 145, 114, 0.616);
+
 }
 
 .envoyer, .suprrimer{

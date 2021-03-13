@@ -41,8 +41,8 @@
     }
 </script>
 <style scoped>
-    div{
-        height:6em;
+    div{   
+    height:6em;
         width:50%;
         padding-top:2em;
         margin-top:5em;
