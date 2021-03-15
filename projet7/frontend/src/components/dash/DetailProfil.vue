@@ -1,5 +1,7 @@
 <template  id="profils">
+  <div class='bloc_detail_profil'>
     <div class='formModifProfil'>
+      <h3> Détail de votre profil</h3>
         <p>Nom :
         <span>  {{user.first_name}}</span>     
           <input type:text v-show='modifyFirstName' v-model="first_name">
@@ -23,9 +25,9 @@
         </p>
       
         <button class='envoyer' type="submit" @click="updateClose">Enregistrer</button>
-        <button class='supprimer' type="submit" @click ="deleteAccount">Supprimer le compte</button>
-        
-    </div>        
+        <button class='supprimer' type="submit" @click ="deleteAccount">Supprimer le compte</button>   
+    </div>
+  </div>        
 </template>
 
 <script>
@@ -140,20 +142,24 @@ export default {
 }
 </script>
 <style scoped>
-
-div{
-   /* height:12em;*/
-    border: 3px solid black;
-    width:50%;
-    margin-top:5em;
+.bloc_detail_profil{
+  
+    width:100%;
+    height:40em;
+    padding-top:5em;
     margin-left:auto;
     margin-right: auto;
     text-align:center;
+     background: rgba(175, 175, 175, 0.075)
 }
 
 .formModifProfil{
-     background: rgba(160, 145, 114, 0.616);
-
+  width:90%;
+  margin-left:auto;
+  margin-right:auto;
+  border: 1px solid grey;
+  border-radius:0.5em;
+  background: rgba(240, 242, 245);   
 }
 
 .envoyer, .suprrimer{

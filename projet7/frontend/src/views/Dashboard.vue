@@ -1,15 +1,16 @@
 <template class="Dashboard">
   <div class="dashboard">
-    <div>
+    <div class="compo">
       <Entete />     
       <Profil v-on:openProfil="showTheProfil"/>
-      <Groupe v-on:openGroup='showNewGroup' />
+      <Groupe v-on:openGroup='showNewGroup' />        
+      <CreateGroup  v-on:fermer-bloc="closeGroup" v-show="groupeDisplay" />
+
       <Users/>
     </div>     
-    <div class="pop_up">           
+    <div class="pop_up">   
       <Publication class="publication" v-show="publicationDisplay"/> 
       <DetailProfil v-on:closeProfil="closeProfil" v-show="profilDisplay"/>
-      <CreateGroup  v-on:fermer-bloc="closeGroup" v-show="groupeDisplay" />
 </div>         
   </div>
 </template>
@@ -81,6 +82,7 @@
   border: 2px solid black;
 }*/
 .dashboard{
+  width:99%;
   background: rgba(240, 242, 245);
 }
 
@@ -92,6 +94,7 @@
   position :relative;
   background: rgba(175, 175, 175, 0.075)
 }
+
 
 
 </style>

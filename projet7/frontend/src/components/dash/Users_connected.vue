@@ -21,19 +21,20 @@ export default {
         .get ('http://localhost:8080/api/employee')
         .then((response) => {
             this.userConnected = response.data;
-        console.log(this.userConnected)
+       // console.log(this.userConnected)
         });
     },
 }
 </script>
 <style scoped>
 .users_connected{
-	width: 22%;
-    height:30em;
+	width: 15%;
 	background: rgba(175, 175, 175, 0.075);
 	border-radius:1em;
     float:right;
-    margin-top:-27em;
+    margin-top:-30em;
+    margin-right:3em;
+    
 }
 
 h4{

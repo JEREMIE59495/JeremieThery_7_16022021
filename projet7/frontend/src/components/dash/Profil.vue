@@ -3,7 +3,8 @@
 	<div class="bloc_profil">
 		<div class= "profil">
 			<div class="photo"></div>
-			<p class= "text">{{user.first_name}} {{user.last_name}}</p>
+			<p class= "first_name">{{user.first_name}}</p>
+			<p> {{user.last_name}}</p>
 			<i class="fas fa-pen"  @click="displayProfil"></i>
 		</div>
 		<div class="divers_profil">
@@ -27,9 +28,6 @@ export default {
         haut:true,
         publicDisplay:true,
         profilDisplay:false,
-	//	employee:null,
-	//	userId:null,
-	//	name:null
       }
 		
 	},
@@ -62,15 +60,17 @@ computed:{
 		margin-left: 1em;
 		margin-right: 1em;
 		border-radius: 4em;	
+		margin-top:0.5em;
 	}
 	
-	.text{
-		margin-top: 0.5em;
+	.first_name{
+		text-transform: uppercase;
+		font-weight:bold;
 		text-align: center;
+		margin-right: 0.5em;;
 	}
 
 	.btn_profil{
-		margin-top:0em;
 		height:2em;
 	}
 
@@ -101,7 +101,7 @@ computed:{
 		background:white;
 		border-radius:0.3em;
 		margin-left:1em;
-		margin-top:0.2em;
+		margin-top:0.8em;
 	}
 
 	.fa-calendar-alt{

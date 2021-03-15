@@ -18,17 +18,18 @@
             <button class="bouton_bloc_ajout" @click="PublieComment">Publier</button>
         </div>
       <!--Affichage des commentaires-->
-        <div class='bloc-commentaire' v-bind:key="index" v-for="(publication, index) in publication">
+        <div class="bloc-commentaire" v-bind:key="index"  v-for="(publication,index) in publication" >
             <div class='title'>
                 {{publication.title}}
+                <button class="btn_admin"  v-if='btnCheck' @click="check">Autoriser</button>
                 <span class="auteur_publication">{{publication.auteur}}</span>
             </div>
-            <div class='commentaire'>
+            <div class='commentaire' v-bind:key='index' v-show="noValidate">
                 {{publication.comment}}
             </div> 
             <div class="bloc_admin" v-if='user.password >=1'>
-                <button class="btn_admin">Bloquer</button>
-                <button class="btn_admin">Autoriser</button>
+                <button class="btn_admin" v-bind:key='index'  @click="nocheck(publication,index)">Supprimer</button>
+                
             </div>
         </div>
     </section>
@@ -44,8 +45,13 @@ export default {
             //Etat actuel des input formulaire
             textOfComment:null,
             titleOfComment:null,
-            publication:null,
-            bouton_ajout:true,  
+            publication:true,
+            bouton_ajout:true, 
+            noValidate :true ,
+            btnCensure:true,
+            btnCheck:false,
+            index:true
+           
         }
     },
     computed: {
@@ -54,18 +60,13 @@ export default {
             return this.$store.state.user   
         },
     },
+
     methods:{
 
-     
-     /*   openBlocComment(){
-            this.showComment= true,
-            this.bouton_ajout= false
-        },
-
-        closeBlocComment(){
-            this.showComment= false,
-            this.bouton_ajout= true
-        },*/
+        nocheck(index){
+        this.publication = this.publication.filter(i=> i != index)
+        console.log(index)
+    },
 
         PublieComment(){  
             const clicGroup = localStorage.getItem('id_group')     
@@ -90,16 +91,17 @@ export default {
             .get ('http://localhost:8080/api/publication/'+ clicGroup)
             .then((response) => {
                 this.publication = response.data;
-                console.log('voila' , this.publication)
-                console.log(this.user.password)
+                //console.log(this.publication)
                 })
     } ,
+
+    
 }
 </script>
 <style scoped>
 .publication{
     width: 100%;
-    height:38em;
+    height:40em;
      overflow-y:scroll;
   /*  border: 1px solid black;*/
 }
