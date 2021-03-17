@@ -3,14 +3,13 @@
     <div class="groupe">
         <h3>Groupes</h3>
         <div class="listGroup">
-            <ul>
-                
+            <ul> 
                 <button class="btn_groupe" v-bind:key="index" v-for="(groupe,index) in groupe" @click='showThisPublication(groupe.id_groupe)'><img class="logo">{{groupe.name_group}}</button>
             </ul>
-       </div>
-       <div class=" addNewGroup" @click="group">
+            <div class=" addNewGroup" @click="group">
               <i class="fas fa-plus"></i>
               <p>Créer un groupe</p>
+            </div>
        </div>
    </div> 
 </template>
@@ -69,13 +68,6 @@
         margin:1em 0em 0.5em 2em;
     }
 
-  /*  .new_group{
-        padding: 0.5em 1.8em ;
-        text-decoration: none;
-        color: black;
-        font-weight: bold;
-    }*/
-
     .btn_groupe{
         font-size:1em;
         border-radius:0.5em;
@@ -110,5 +102,31 @@
         border-radius: 0.5em;
         margin-right:1em;
         background: lightsalmon;
+    }
+
+    @media  screen and (max-width:600px) {
+        .groupe{
+        width:100%;
+        height:1.5em;
+        }
+
+        .listGroup{
+            display:none;
+        }
+
+        .groupe:hover .listGroup{
+            display:inline;
+        }
+
+        .groupe:hover{
+                height:auto;
+        }
+        .btn_groupe{
+            width:100%;
+        }
+        .addNewGroup{
+            width:100%;
+            padding-left:50%;
+        }
     }
 </style>

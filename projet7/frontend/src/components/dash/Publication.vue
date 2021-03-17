@@ -50,10 +50,10 @@ export default {
             noValidate :true ,
             btnCensure:true,
             btnCheck:false,
-            index:true
-           
+            index:true     
         }
     },
+
     computed: {
         ...mapState(['user']),
         infoUser(){
@@ -66,7 +66,7 @@ export default {
         nocheck(index){
         this.publication = this.publication.filter(i=> i != index)
         console.log(index)
-    },
+        },
 
         PublieComment(){  
             const clicGroup = localStorage.getItem('id_group')     
@@ -82,120 +82,153 @@ export default {
                     this.showComment= false
                     document.location.reload();
                 })
+                .catch(error => console.log(error));
         },   
     },
     
     mounted(){
-            const clicGroup = localStorage.getItem('id_group')     
+        const clicGroup = localStorage.getItem('id_group')     
         axios
             .get ('http://localhost:8080/api/publication/'+ clicGroup)
             .then((response) => {
                 this.publication = response.data;
                 //console.log(this.publication)
-                })
+            })
+            .catch(error => console.log(error));
     } ,
 
     
 }
 </script>
 <style scoped>
-.publication{
-    width: 100%;
-    height:40em;
-     overflow-y:scroll;
-  /*  border: 1px solid black;*/
-}
+    .publication{
+        width: 100%;
+        height:40em;
+        overflow-y:scroll;
+    }
 
-h3{
-    margin:0.2em;
-    margin-bottom:1em;
-}
+    h3{
+        margin:0.2em;
+        margin-bottom:1em;
+    }
 
-input{
-    width:100%;
-    margin-bottom:1em;
-    border:1px solid grey;
-    border-radius:0.3em;
-    float:left;
-}
-.add-comment{
-    padding-top:0.5em;
-    text-align:left;
-}
-.toto{
-    width:100%;
-}
-h4{
-    margin:0em;
-    text-align:left;
-}
+    input{
+        width:100%;
+        margin-bottom:1em;
+        border:1px solid grey;
+        border-radius:0.3em;
+        float:left;
+    }
 
-.bloc_bouton_ajout{
-    width:100%;
-    height:2em;
-    background:lightseagreen
-}
+    .add-comment{
+        padding-top:0.5em;
+        text-align:left;
+    }
 
-.bouton_ajout{
-    float:left;
-}
+    h4{
+        margin:0em;
+        text-align:left;
+    }
 
-.addComment{
-    padding:0em 4em 0em 4em;
-    border:1px solid grey;
-    height:12em;
-    margin-left:0.6em;
-    margin-right:0.6em;
-    border-radius:0.5em;
-    background: rgba(175, 175, 175, 0.301)
-}
+    .bloc_bouton_ajout{
+        width:100%;
+        height:2em;
+        background:lightseagreen
+    }
 
-textarea{
-    width:100%;
-    height:3em;
-     border-radius:0.5em;
-    resize: none;
-}
+    .bouton_ajout{
+        float:left;
+    }
 
-.bouton_bloc_ajout{
-    float:right;
-    margin-left:0.5em;
-}
+    .addComment{
+        padding:0em 4em 0em 4em;
+        border:1px solid grey;
+        height:12em;
+        margin-left:0.6em;
+        margin-right:0.6em;
+        border-radius:0.5em;
+        background: rgba(175, 175, 175, 0.301);
+        box-shadow: 5px 3px 5px grey;
+    }
 
-.title{
-    text-align:left;
-    padding:0.2em 1em 0.2em 1em ;
-}
+    textarea{
+        width:100%;
+        height:3em;
+        border-radius:0.5em;
+        resize: none;
+    }
 
-.auteur_publication{
-    float:right;
-}
+    .bouton_bloc_ajout{
+        float:right;
+        margin-left:0.5em;
+    }
 
-.id_groupe_publication{
-    margin-left:50%;
-}
+    .title{
+        text-align:left;
+        padding:0.2em 1em 0.2em 1em ;
+    }
 
-.bloc-commentaire{
-    border: 1px solid grey;
-    width:90%;
-    margin-left:auto;
-    margin-right: auto;
-    margin-bottom: 0.5em ;
-    margin-top:1em;
-    border-radius:0.4em;
-    background:white;
-}
-.commentaire{
-    padding:0.5em;
-    border-top:1px solid black;
-}
-.bloc_admin{
-    width:100%;
-  text-align:right; 
-  border-top:1px solid black;
-}
-.btn_admin{
-    
-    margin:0.2em 1em 0.2em 1em;
-}
+    .auteur_publication{
+        float:right;
+    }
+
+    .id_groupe_publication{
+        margin-left:50%;
+    }
+
+    .bloc-commentaire{
+        border: 1px solid grey;
+        width:90%;
+        margin-left:auto;
+        margin-right: auto;
+        margin-bottom: 0.5em ;
+        margin-top:1em;
+        border-radius:0.4em;
+        background:white;
+        box-shadow: 5px 3px 5px grey;
+    }
+
+    .commentaire{
+        padding:0.5em;
+        border-top:1px solid black;
+    }
+
+    .bloc_admin{
+        width:100%;
+        text-align:right; 
+        border-top:1px solid black;
+    }
+
+    .btn_admin{
+        
+        margin:0.2em 1em 0.2em 1em;
+    }
+
+    @media  screen and (max-width:420px) {
+        .publication{
+            margin-top:0em;
+            overflow-y: hidden;
+            height: auto;
+            width:100%;
+        }
+
+        .addComment{
+            text-align: none;
+            padding:0em 0.6em 0em 0.2em;
+            margin-right: 0.5em;
+        }
+
+    }
+
+    @media  screen and (max-width:600px) {
+        .publication{
+           margin-top:0em;
+        }
+    }
+
+    @media  screen and (min-width:601px)and (max-width:750px) {
+        .publication{
+            height:39em;
+        }
+    }
 </style>

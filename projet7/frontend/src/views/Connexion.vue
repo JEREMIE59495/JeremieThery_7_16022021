@@ -37,7 +37,7 @@ export default {
         
         login:function(){
             console.log(this.dataLogin)
-           if(
+            if(
                 this.email !== null ||
                 this.password !== null
             ){
@@ -70,6 +70,7 @@ export default {
         margin-right: auto;
         border-radius: 0.5em;
     }
+
     legend{
         width: 5em;
         margin-left: 0;
@@ -77,13 +78,12 @@ export default {
     }
 
     form{
-    margin-top: 10em;
+        margin-top: 10em;
     }
 
     #mail{
         width: 12em;
-        margin: 0.5em 2em 1em 0.5em;
-        
+        margin: 0.5em 2em 1em 0.5em;   
     }
 
     .password{

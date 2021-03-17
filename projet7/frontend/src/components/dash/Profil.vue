@@ -4,12 +4,11 @@
 		<div class= "profil">
 			<div class="photo"></div>
 			<p class= "first_name">{{user.first_name}}</p>
-			<p> {{user.last_name}}</p>
-			<i class="fas fa-pen"  @click="displayProfil"></i>
+			<p> {{user.last_name}}</p>	
 		</div>
 		<div class="divers_profil">
-			<a><i class="far fa-newspaper"></i>Fil d'actualité</a><br>
-			<a><i class="far fa-calendar-alt"></i>Evenement</a><br>
+			<a @click="displayProfil"><i class="fas fa-cog"></i>Paramètre</a>
+			<a><i class="far fa-calendar-alt"></i>Evenement</a>
 			<a><i class="fas fa-address-book"></i>Annuaire</a>
 		</div>
 	</div>
@@ -19,7 +18,6 @@
 //import axios from 'axios'
 import {mapState} from 'vuex'
 
-
 export default {
 	name: 'Profil',
 	el:'.profil',
@@ -28,19 +26,20 @@ export default {
         haut:true,
         publicDisplay:true,
         profilDisplay:false,
-      }
-		
+      }	
 	},
-computed:{
-	...mapState(['user'])
-},
- //fonction pour ouvrir le detail du profil
+
+	computed:{
+		...mapState(['user'])
+	},
+
+//fonction pour ouvrir le detail du profil
     methods:{
         displayProfil:function(){
             this.$emit('openProfil',)
         }, 
-
     },
+
 	mounted(){
 		this.$store.dispatch('getInfoUser')
     }, 
@@ -84,40 +83,75 @@ computed:{
 		padding-left:1em;
 		text-align: left;
 		width:100%;
+		display: flex;
+		flex-direction: column;
 	}
 
 	.fa-address-book{
-		background:white;
+		background: rgba(240, 242, 245);
 		color:rgb(37, 167, 11);
 		font-size:1.3em;
 		margin-right:0.5em;
 		margin-bottom:0.5em;
 	}
 
-	.fa-pen{
-		height:1em;
-		width:1em;
-		padding:0.2em;
-		background:white;
-		border-radius:0.3em;
-		margin-left:1em;
-		margin-top:0.8em;
-	}
-
 	.fa-calendar-alt{
-		background:white;
+		background: rgba(240, 242, 245);
 		color:rgb(169, 27, 204);
 		font-size:1.3em;
 		margin-right:0.5em;
 		margin-bottom:0.5em;
 	}
 	
-	.fa-newspaper{
-		background:white;
-		color:blue;
+	.fa-cog{
+		background: rgba(240, 242, 245);
+		color:grey;
 		font-size:1.3em;
 		margin-right:0.5em;
 		margin-bottom:0.5em;
 	}
-	
+
+	.groupe{
+		display:none;
+	}
+
+	@media  screen and (max-width:600px) {
+		.profil{
+			padding:0em;
+			margin-top:28em;
+			margin:0;
+		}
+		
+		.bloc_profil{
+			width:100%;
+		}
+
+		.divers_profil{
+			width:96%;
+			height:4em;
+			display: flex;
+			justify-content: space-around;
+			flex-direction: initial;
+		}
+
+		i{
+			padding-left: 1em;
+		}
+
+		a{
+			height:1em;
+			width:100%;
+			margin-right: 1em;
+		}	
+	}
+
+	@media  screen and (max-width:750px) {
+		.photo{
+			display: none;
+		}
+
+		.first_name{
+			margin-left:1em
+		}	
+	}
 </style>

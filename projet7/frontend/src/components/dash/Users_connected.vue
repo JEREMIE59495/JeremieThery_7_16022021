@@ -16,37 +16,53 @@ export default {
             userConnected:null,
         }
     },
+
     mounted(){
         axios
         .get ('http://localhost:8080/api/employee')
         .then((response) => {
             this.userConnected = response.data;
        // console.log(this.userConnected)
-        });
+        })
+        .catch(error => console.log(error));
     },
 }
 </script>
 <style scoped>
-.users_connected{
-	width: 15%;
-	background: rgba(175, 175, 175, 0.075);
-	border-radius:1em;
-    float:right;
-    margin-top:-30em;
-    margin-right:3em;
-    
-}
+    .users_connected{
+        width: 15%;
+        background: rgba(175, 175, 175, 0.075);
+        border-radius:1em;
+        float:right;
+        margin-top:-30em;
+        margin-right:3em;
+    }
 
-h4{
-	margin: 1em 0em 0em 2em;
-    text-align: left;
-	}
-li{
-	text-align: left;
-	width:100%;
-	list-style:none;
-	font-size:1em;
-	margin-left:1em;
-	padding:0;
+    h4{
+        margin: 1em 0em 0em 2em;
+        text-align: left;
+        }
+
+    li{
+        text-align: left;
+        width:100%;
+        list-style:none;
+        font-size:1em;
+        margin-left:1em;
+        padding:0;
+    }
+
+    @media  screen and (max-width:600px) {
+        .users_connected{
+           display:none;
+        }
+    }
+
+    @media  screen and (min-width:601px) and (max-width:800px) {
+        .users_connected{
+            width:30%;
+            float:left;
+            margin-top:0em;
+        }
 }
 </style>

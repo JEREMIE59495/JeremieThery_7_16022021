@@ -1,7 +1,7 @@
 <!--Pop up pour ajouter un nouveau groupe-->
 <template >
     <div class='bloc_new_group'>
-        <div class='new_group'>
+        <div class='group'>
             <h3>Création d'un nouveau groupe</h3>
             <label for="createGroup">Nom du groupe : </label>
             <input type="text" id="createGroup" class="createGroup" v-model="name_group">
@@ -44,9 +44,9 @@
     }
 </script>
 <style scoped>
-    .new_group{   
-    height:7em;
-        width:70%;
+    .group{   
+        height:7em;
+        width:90%;
         padding-top:0.5em;
         margin-left:auto;
         margin-right: auto;
@@ -54,20 +54,58 @@
         border: 1px solid black;
         border-radius:0.5em;
     }
+
     button{
         margin: 1em;
        
     }
+
     .bloc_new_group{
          margin-left:auto;
         margin-right: auto;
         margin-top:-29.4em;
         padding-top:5em;
         width:48%;
-        height:35em;
-      background: rgba(175, 175, 175, 0.075)
+        height:36em;
+        background: rgba(175, 175, 175, 0.075);
     }
+    
     h3{
         margin:0;
+    }
+
+    @media screen and (max-width:420px){
+        .bloc_new_group{
+            width:100%;
+            height: 27em;
+            margin:0;
+            padding:0;
+        }
+
+        .group{
+            width:100%;
+            margin-top:0em;
+        }
+
+        h3, .createGroup{
+            margin-bottom: 1em;
+        }
+        
+        
+        button{
+            margin:0;
+        }
+    }
+
+    @media screen and(max-width:750px) {
+        .bloc_new_group{
+            width:100%;
+            margin:0;
+            float:right;
+        }
+
+        .group{
+            margin:0;
+        }
     }
 </style>

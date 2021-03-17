@@ -4,14 +4,13 @@
       <Entete />     
       <Profil v-on:openProfil="showTheProfil"/>
       <Groupe v-on:openGroup='showNewGroup' />        
-      <CreateGroup  v-on:fermer-bloc="closeGroup" v-show="groupeDisplay" />
-
+      <CreateGroup class="new_group" v-on:fermer-bloc="closeGroup" v-show="groupeDisplay" />
       <Users/>
     </div>     
     <div class="pop_up">   
       <Publication class="publication" v-show="publicationDisplay"/> 
       <DetailProfil v-on:closeProfil="closeProfil" v-show="profilDisplay"/>
-</div>         
+    </div>         
   </div>
 </template>
 
@@ -52,6 +51,7 @@
         this.profilDisplay= false;
         this.publicationDisplay= false
       },
+
       closeGroup(){
         this.groupeDisplay=false; 
         this.publicationDisplay=true;
@@ -63,6 +63,7 @@
         this.groupeDisplay=false; 
         this.publicationDisplay= false;
       },
+
       closeProfil:function(){
         this.profilDisplay= false;
         this.publicationDisplay= true;
@@ -71,31 +72,57 @@
   }
 </script>
 <style scoped>
-.navLeft{
-  width: 100%;
-}
-/*
-.publication{
-  width: 85%;
-  float: right;
-  margin-top:-37.9em;
-  border: 2px solid black;
-}*/
-.dashboard{
-  width:99%;
-  background: rgba(240, 242, 245);
-}
+  .navLeft{
+    width: 100%;
+  }
 
-.pop_up{
-  width:55%;
-  margin-left:auto;
-  margin-right:auto; 
-  margin-top:-29.4em;
-  position :relative;
-  background: rgba(175, 175, 175, 0.075)
-}
+  .dashboard{
+    width:99%;
+    background: rgba(240, 242, 245);
+  }
 
+  .pop_up{
+    width:55%;
+    margin-left:auto;
+    margin-right:auto; 
+    margin-top:-29.4em;
+    position :relative;
+    background: rgba(175, 175, 175, 0.075)
+  }
 
+  @media  screen and (max-width:400px) {
+    .pop_up{
+      width:100%; 
+    }
+  }
 
+  @media  screen and (max-width:600px) {
+    .pop_up{
+      width:100%;
+      margin-top:0em;
+    }
+  }
+
+  @media  screen and (min-width:601px) and (max-width:750px) {
+    .pop_up{
+      width:72.5%;
+      float:right;
+      margin-right:-1em;
+     }
+
+    .dashboard{
+      height:auto;
+    }
+
+    .new_group{
+      width:70%;
+      float:right;
+    }
+
+    .pop_up{
+      margin-top:-41.4em;
+    }
+  }
 </style>
+
 

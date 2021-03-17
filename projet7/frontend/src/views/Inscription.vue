@@ -45,31 +45,28 @@ export default {
         }
     },
 
-            methods:{
-                signupUser:function(){
-                    console.log(this.dataSignup)
-                    if(
-                        this.dataSignup !==null
-                    ){
-                    axios
-                 .post('http://localhost:8080/api/auth/signup', this.dataSignup )
-                    .then(response=>{
-                            location.replace('http://localhost:8081/Connexion')
-                            console.log(response)
-                        })
-                        .catch(error =>{
+    methods:{
+        signupUser:function(){
+            console.log(this.dataSignup)
+            if(
+                this.dataSignup !==null
+            ){
+                axios
+                .post('http://localhost:8080/api/auth/signup', this.dataSignup )
+                .then(response=>{
+                        location.replace('http://localhost:8081/Connexion')
+                        console.log(response)
+                })
+                .catch(error =>{
                     this.err = error.response.data.message
-                 console.log(error.message);
-            })
-                      } else {     
-                        console.log('Inscription non envoyé !!')
-                       }
-                   }
-                }
+                    console.log(error.message);
+                })
+            } else {     
+                console.log('Inscription non envoyé !!')
+            }
+        }
+    }
 }
-         
-    
-
 </script>
 <style scoped lang="scss">
     fieldset{
@@ -86,7 +83,7 @@ export default {
     }
 
     form{
-    margin-top: 5em;
+        margin-top: 5em;
     }
 
     #name,#surname{

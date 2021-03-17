@@ -2,6 +2,7 @@
   <div class='bloc_detail_profil'>
     <div class='formModifProfil'>
       <h3> Détail de votre profil</h3>
+      
         <p>Nom :
         <span>  {{user.first_name}}</span>     
           <input type:text v-show='modifyFirstName' v-model="first_name">
@@ -25,7 +26,8 @@
         </p>
       
         <button class='envoyer' type="submit" @click="updateClose">Enregistrer</button>
-        <button class='supprimer' type="submit" @click ="deleteAccount">Supprimer le compte</button>   
+        <button class='supprimer' type="submit" @click ="deleteAccount">Supprimer le compte</button>  
+        <button class="Annuler" @click ="close">Annuler</button> 
     </div>
   </div>        
 </template>
@@ -60,32 +62,32 @@ export default {
       
    },
 }, 
-  
-
       //click du bouton pour refermer la div
     methods:{
-      
+      close(){
+        this.$emit('closeProfil')
+      },
       updateClose(){
         if(this.first_name == null){
-         this.first_name=this.$store.state.user.first_name
-         document.location.reload
-      console.log(this.first_name)
-      }
-      if(this.last_name == null){
-         this.last_name=this.$store.state.user.last_name
-         document.location.reload
-      console.log(this.last_name)
-      }
-      if(this.email == null){
-         this.email=this.$store.state.user.email
-         document.location.reload
-      console.log(this.email)
-      }
-  if(this.password == null){
-         this.password=this.$store.state.user.password
-         document.location.reload
-      console.log(this.password)
-      }
+          this.first_name=this.$store.state.user.first_name
+          document.location.reload
+          //console.log(this.first_name)
+        }
+        if(this.last_name == null){
+          this.last_name=this.$store.state.user.last_name
+          document.location.reload
+         // console.log(this.last_name)
+        }
+        if(this.email == null){
+          this.email=this.$store.state.user.email
+          document.location.reload
+          //console.log(this.email)
+        }
+        if(this.password == null){
+              this.password=this.$store.state.user.password
+              document.location.reload
+            //console.log(this.password)
+        }
           const token = localStorage.getItem('userInfo')
           var decode = jwt_decode(token)
           let userId= decode.id
@@ -93,27 +95,27 @@ export default {
       //modification du profil
      
      axios
-    
         .put('http://localhost:8080/api/employee/'+ userId,   
-       {
-              first_name:this.first_name,
-              last_name:this.last_name,
-              email:this.email,
-              password: this.password
+        {
+          first_name:this.first_name,
+          last_name:this.last_name,
+          email:this.email,
+          password: this.password
         })
+      
         .then(response => console.log(response))
           this.$emit('closeProfil')
           this.modifyFirstName=false
           this.modifyLastName=false
           this.modifyEmail=false
           this.modifypassword=false
-  
       },
 
       deleteAccount() {
         const token = localStorage.getItem('userInfo')
-          var decode = jwt_decode(token)
-          let userId= decode.id
+        var decode = jwt_decode(token)
+        let userId= decode.id
+
         axios
           .delete("http://localhost:8080/api/employee/"+ userId)
           
@@ -123,63 +125,67 @@ export default {
           })
           .catch(error => console.log(error));
       },
+
       //Affiche les inputs de modification
       modifyFN(){
         this.modifyFirstName=true
       },
-       modifyLN(){
+      modifyLN(){
         this.modifyLastName=true
       },
-       modifyE(){
+      modifyE(){
         this.modifyEmail=true
       },
-       modifyP(){
+      modifyP(){
         this.modifypassword=true
       },
-    // suppression du compte
-
     },
 }
 </script>
 <style scoped>
-.bloc_detail_profil{
-  
-    width:100%;
-    height:40em;
-    padding-top:5em;
+  .bloc_detail_profil{
+      width:100%;
+      height:40em;
+      padding-top:5em;
+      margin-left:auto;
+      margin-right: auto;
+      text-align:center;
+      background: rgba(175, 175, 175, 0.075)
+  }
+
+  .formModifProfil{
+    width:90%;
     margin-left:auto;
-    margin-right: auto;
-    text-align:center;
-     background: rgba(175, 175, 175, 0.075)
-}
+    margin-right:auto;
+    border: 1px solid grey;
+    border-radius:0.5em;
+    background: rgba(240, 242, 245);   
+  }
 
-.formModifProfil{
-  width:90%;
-  margin-left:auto;
-  margin-right:auto;
-  border: 1px solid grey;
-  border-radius:0.5em;
-  background: rgba(240, 242, 245);   
-}
+  .envoyer, .suprrimer,.Annuler{
+    margin:0.5em;
+  }
 
-.envoyer, .suprrimer{
-  margin:1em;
-}
+  button{
+    margin-left:0.5em;
+  }
 
-button{
-  margin-left:0.5em;
-}
+  input{
+    width:7em;
+    margin-left:0.5em;
+    border:0.2px solid grey;
+    border-bottom: 1px solid black;
+    outline: none;
+  }
 
-input{
-  width:7em;
-  margin-left:0.5em;
-  border:0.2px solid grey;
-  border-bottom: 1px solid black;
-  outline: none;
-}
+  p{
+    margin-bottom: 0em;
+  }
 
-p{
-  margin-bottom: 0em;
+  @media screen and(max-width:750px) {
+   .bloc_detail_profil{
+    margin-top: 1em;
+  }
 }
 
 </style>

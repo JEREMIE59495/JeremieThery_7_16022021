@@ -9,21 +9,22 @@
 import Headers from '@/components/Header.vue'
 export default {
   name: 'Interface',
- components:{
-   Headers
- }
+  components:{
+    Headers
+  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-img{
-  height:30em;
-  margin-left: auto;
-  margin-right: auto;
-}
-.header{
-  float: right;
-  margin-right: 1em;
-}
+  img{
+    height:30em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .header{
+    float: right;
+    margin-right: 1em;
+  }
 </style>
