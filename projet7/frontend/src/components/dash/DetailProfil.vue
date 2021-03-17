@@ -1,8 +1,7 @@
 <template  id="profils">
   <div class='bloc_detail_profil'>
-    <div class='formModifProfil'>
+    <div class='formModifProfil' v-if='modifProfil'>
       <h3> Détail de votre profil</h3>
-      
         <p>Nom :
         <span>  {{user.first_name}}</span>     
           <input type:text v-show='modifyFirstName' v-model="first_name">
@@ -19,16 +18,28 @@
             <input type:email v-if='modifyEmail' v-model='email'>
             <button @click='modifyE'><i class="fas fa-pen"></i></button>
         </p>
-        <p>Mot de passe :
-            <span>*********</span>
-            <input type:password v-if='modifypassword' v-model='password'>
-            <button @click='modifyP'><i class="fas fa-pen"></i></button>
+        <p>Confirmer votre mot de passe :
+            <input id='pass' type:password  v-model='password' >
         </p>
       
-        <button class='envoyer' type="submit" @click="updateClose">Enregistrer</button>
+        
+    </div>
+    <div class="modifPassword" v-if='modifPassword'>
+       <p>Ancien mot de passe :
+            <span>*********</span>
+            <input type:password v-if='modifypassword' v-model='jjpassword'>
+            <button @click='modifyP'><i class="fas fa-pen"></i></button>
+        </p>
+        <p>Nouveau mot de passe :
+            <span>*********</span>
+            <input id='pass' type:password v-if='modifypassword' v-model='jjpassword'>
+            <button @click='modifyP'><i class="fas fa-pen"></i></button>
+        </p>
+    </div>
+    <button id="envoyer" class='envoyer' type="submit" @click="updateClose" :disabled='!password.length' >Enregistrer</button>
         <button class='supprimer' type="submit" @click ="deleteAccount">Supprimer le compte</button>  
         <button class="Annuler" @click ="close">Annuler</button> 
-    </div>
+        <button @click="next">Suivant</button>
   </div>        
 </template>
 
@@ -47,12 +58,14 @@ export default {
           modifyLastName: false,
           modifyEmail: false,
           modifypassword:false,
+          modifProfil :true,
+          modifPassword:false,
           //valeur de l'input
           first_name: null,
           last_name: null,
           email: null,
-          password:null
-          
+          password:"",
+          validated:true
         }    
       },
       computed:{
@@ -63,7 +76,13 @@ export default {
    },
 }, 
       //click du bouton pour refermer la div
-    methods:{
+    methods:{ 
+     
+      next(){
+        this.modifProfil=false,
+        this.modifPassword=true
+      },
+
       close(){
         this.$emit('closeProfil')
       },
@@ -88,6 +107,9 @@ export default {
               document.location.reload
             //console.log(this.password)
         }
+        /* if(this.password !=null){
+         document.getElementById("envoyer").disabled=false
+       }*/
           const token = localStorage.getItem('userInfo')
           var decode = jwt_decode(token)
           let userId= decode.id
@@ -149,7 +171,7 @@ export default {
       padding-top:5em;
       margin-left:auto;
       margin-right: auto;
-      text-align:center;
+      text-align:center; 
       background: rgba(175, 175, 175, 0.075)
   }
 

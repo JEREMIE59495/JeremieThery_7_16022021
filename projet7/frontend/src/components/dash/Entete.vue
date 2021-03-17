@@ -52,7 +52,7 @@
       height:5em;
       margin:0;
     }
-    
+
     .deconnexion{
       margin-top:3.5em;
     }
@@ -60,6 +60,13 @@
 
   @media  screen and (min-width:601px) and (max-width:750px) {
     .head{
+      width:70%;
+      float:right;
+      margin:0;
+    }
+  }
+  @media screen and (min-width:761px) and (max-width:950px){
+  .head{
       width:70%;
       float:right;
       margin:0;

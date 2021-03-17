@@ -69,7 +69,7 @@
         height:36em;
         background: rgba(175, 175, 175, 0.075);
     }
-    
+
     h3{
         margin:0;
     }
@@ -101,6 +101,18 @@
         .bloc_new_group{
             width:100%;
             margin:0;
+            float:right;
+        }
+
+        .group{
+            margin:0;
+        }
+    }
+        @media screen and (min-width:751px) and (max-width:950px){
+    .bloc_new_group{
+            width:70%;
+            height:10em;
+            margin-top:-20em;
             float:right;
         }
 

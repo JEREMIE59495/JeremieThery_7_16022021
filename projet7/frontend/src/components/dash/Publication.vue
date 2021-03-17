@@ -231,4 +231,9 @@ export default {
             height:39em;
         }
     }
+    @media screen and (min-width:751px) and (max-width:950px){
+        .publication{
+            height:auto;
+        }
+  }
 </style>

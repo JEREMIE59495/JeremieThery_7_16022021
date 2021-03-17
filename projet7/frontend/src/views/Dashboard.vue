@@ -77,7 +77,7 @@
   }
 
   .dashboard{
-    width:99%;
+    width:100%;
     background: rgba(240, 242, 245);
   }
 
@@ -90,20 +90,20 @@
     background: rgba(175, 175, 175, 0.075)
   }
 
-  @media  screen and (max-width:400px) {
+  @media screen and (max-width:400px) {
     .pop_up{
       width:100%; 
     }
   }
 
-  @media  screen and (max-width:600px) {
+  @media screen and (max-width:600px) {
     .pop_up{
       width:100%;
       margin-top:0em;
     }
   }
 
-  @media  screen and (min-width:601px) and (max-width:750px) {
+  @media screen and (min-width:601px) and (max-width:750px) {
     .pop_up{
       width:72.5%;
       float:right;
@@ -111,6 +111,7 @@
      }
 
     .dashboard{
+      width:97.5%;
       height:auto;
     }
 
@@ -123,6 +124,17 @@
       margin-top:-41.4em;
     }
   }
+  @media screen and (min-width:751px) and (max-width:950px){
+  
+    .pop_up{
+      width:72.5%;
+      float:right;
+      margin-right:-1em;
+      margin-top:-41.5em;
+    }
+  }
+
+
 </style>
 
 

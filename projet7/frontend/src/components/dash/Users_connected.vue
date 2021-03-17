@@ -30,12 +30,12 @@ export default {
 </script>
 <style scoped>
     .users_connected{
-        width: 15%;
+        width: 20%;
         background: rgba(175, 175, 175, 0.075);
         border-radius:1em;
         float:right;
         margin-top:-30em;
-        margin-right:3em;
+        margin-right:1em;
     }
 
     h4{
@@ -63,6 +63,9 @@ export default {
             width:30%;
             float:left;
             margin-top:0em;
+        }
+        ul{
+            width:100%
         }
 }
 </style>

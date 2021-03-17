@@ -53,7 +53,6 @@
     .groupe{
         width: 22%;
         height: 20.6em;
-        padding-top: 0em;
     }
 
     .listGroup{
@@ -106,7 +105,7 @@
 
     @media  screen and (max-width:600px) {
         .groupe{
-        width:100%;
+        width:22%;
         height:1.5em;
         }
 
@@ -128,5 +127,13 @@
             width:100%;
             padding-left:50%;
         }
+    }
+    @media screen and (min-width:751px) and (max-width:950px){
+        .listGroup{
+            width:100%
+        }
+        .addNewGroup{
+            padding:0em;
+        } 
     }
 </style>
