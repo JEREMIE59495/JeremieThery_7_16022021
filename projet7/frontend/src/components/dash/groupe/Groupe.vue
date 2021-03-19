@@ -4,7 +4,7 @@
         <h3>Groupes</h3>
         <div class="listGroup">
             <ul> 
-                <button class="btn_groupe" v-bind:key="index" v-for="(groupe,index) in groupe" @click='showThisPublication(groupe.id_groupe)'><img class="logo">{{groupe.name_group}}</button>
+                <button class="btn_groupe" v-bind:key="index" v-for="(groupe,index) in groupe" @click='showThisPublication( groupe.id_groupe , groupe.name_group)'><img class="logo">{{groupe.name_group}}</button>
             </ul>
             <div class=" addNewGroup" @click="group">
               <i class="fas fa-plus"></i>
@@ -30,9 +30,12 @@
             this.$emit('openGroup')
             }, 
 
-            showThisPublication(id_groupe){
-                localStorage.setItem('id_group',id_groupe),
-                this.$emit('showThispublication',id_groupe)
+            showThisPublication(id_groupe, name_group){
+                const qqc=[]
+                qqc.push(id_groupe)
+                qqc.push(name_group)
+                localStorage.setItem('id_group', qqc),
+                this.$emit('showThispublication', qqc)
                 document.location.reload();
             }
         },
@@ -43,7 +46,7 @@
             .get ('http://localhost:8080/api/groupe')
             .then((response) => {
                 this.groupe = response.data;
-                //console.log(this.groupe)
+              //  console.log(this.groupe)
             });
         },
     }

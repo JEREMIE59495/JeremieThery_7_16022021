@@ -65,8 +65,10 @@
       },
 
       closeProfil:function(){
+        
         this.profilDisplay= false;
         this.publicationDisplay= true;
+        document.location.reload();
       },
     },
   }

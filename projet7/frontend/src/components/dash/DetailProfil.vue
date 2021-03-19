@@ -1,7 +1,13 @@
 <template  id="profils">
   <div class='bloc_detail_profil'>
-    <div class='formModifProfil' v-if='modifProfil'>
-      <h3> Détail de votre profil</h3>
+    <div class='formModifProfil' >
+      <div class="headProfil" >
+        <a @click="next" class="linkAdvance" v-if='advance'>Paramètre avancé</a>
+        <a @click="previous" class="linkGeneral" v-if='general'>Général</a>
+        <h3> Détail de votre profil</h3>
+        <button @click ="close" class="Annuler">X</button>
+      </div>
+      <div class='formProfil' v-if='modifProfil'>
         <p>Nom :
         <span>  {{user.first_name}}</span>     
           <input type:text v-show='modifyFirstName' v-model="first_name">
@@ -22,24 +28,21 @@
             <input id='pass' type:password  v-model='password' >
         </p>
       
-        
-    </div>
-    <div class="modifPassword" v-if='modifPassword'>
+       </div> <div class="modifPassword" v-if='modifPassword'>
        <p>Ancien mot de passe :
-            <span>*********</span>
-            <input type:password v-if='modifypassword' v-model='jjpassword'>
-            <button @click='modifyP'><i class="fas fa-pen"></i></button>
+            <input type:password  v-model='lastPassword'>
         </p>
         <p>Nouveau mot de passe :
-            <span>*********</span>
-            <input id='pass' type:password v-if='modifypassword' v-model='jjpassword'>
-            <button @click='modifyP'><i class="fas fa-pen"></i></button>
+            <input id='pass' type:password v-model='newPassword'>
         </p>
-    </div>
-    <button id="envoyer" class='envoyer' type="submit" @click="updateClose" :disabled='!password.length' >Enregistrer</button>
         <button class='supprimer' type="submit" @click ="deleteAccount">Supprimer le compte</button>  
-        <button class="Annuler" @click ="close">Annuler</button> 
-        <button @click="next">Suivant</button>
+    </div>
+    <button class='envoyer' type="submit" @click="updateClose" :disabled='!password.length' >Enregistrer</button>
+       
+    </div>
+    
+      <!-- <button class="Annuler" @click ="close">Annuler</button> -->
+        
   </div>        
 </template>
 
@@ -57,7 +60,6 @@ export default {
           modifyFirstName: false,
           modifyLastName: false,
           modifyEmail: false,
-          modifypassword:false,
           modifProfil :true,
           modifPassword:false,
           //valeur de l'input
@@ -65,103 +67,113 @@ export default {
           last_name: null,
           email: null,
           password:"",
-          validated:true
+          lastPassword:null,
+          newPassword:null,
+         // validated:true,
+          advance:true,
+          general:false
         }    
       },
       computed:{
-	...mapState(['user']),
-   infoUser(){
-       return this.$store.state.user
-      
-   },
-}, 
+        ...mapState(['user']),
+        infoUser(){
+            return this.$store.state.user  
+        },
+      }, 
       //click du bouton pour refermer la div
-    methods:{ 
-     
-      next(){
-        this.modifProfil=false,
-        this.modifPassword=true
-      },
+      methods:{ 
+        //Pour modifier le mdp
+        next(){
+          this.modifProfil= false,
+          this.modifPassword= true,
+          this.advance= false,
+        this.general = true
+        },
 
-      close(){
-        this.$emit('closeProfil')
-      },
-      updateClose(){
-        if(this.first_name == null){
-          this.first_name=this.$store.state.user.first_name
-          document.location.reload
-          //console.log(this.first_name)
-        }
-        if(this.last_name == null){
-          this.last_name=this.$store.state.user.last_name
-          document.location.reload
-         // console.log(this.last_name)
-        }
-        if(this.email == null){
-          this.email=this.$store.state.user.email
-          document.location.reload
-          //console.log(this.email)
-        }
-        if(this.password == null){
-              this.password=this.$store.state.user.password
-              document.location.reload
-            //console.log(this.password)
-        }
-        /* if(this.password !=null){
-         document.getElementById("envoyer").disabled=false
-       }*/
+        //pour revenir au modif general
+        previous(){
+          this.modifProfil=true,
+          this.modifPassword=false,
+          this.general = false,
+          this.advance= true
+        },
+
+        //Fermé le bloc de modification
+        close(){
+          this.$emit('closeProfil')
+        },
+
+        updateClose(){
+          if(this.first_name == null){
+            this.first_name=this.$store.state.user.first_name
+          }
+
+          if(this.last_name == null){
+            this.last_name=this.$store.state.user.last_name
+          }
+
+          if(this.email == null){
+            this.email=this.$store.state.user.email
+          }
+
+           if(this.lastPassword !=this.newPassword){
+          alert('error')
+         }
+       /*   if(this.password !=this.$store.state.user.password){
+          alert('error')
+         // }else{*/
+
           const token = localStorage.getItem('userInfo')
           var decode = jwt_decode(token)
           let userId= decode.id
-      
-      //modification du profil
+        
+          //modification du profil
      
-     axios
-        .put('http://localhost:8080/api/employee/'+ userId,   
-        {
-          first_name:this.first_name,
-          last_name:this.last_name,
-          email:this.email,
-          password: this.password
-        })
-      
-        .then(response => console.log(response))
-          this.$emit('closeProfil')
-          this.modifyFirstName=false
-          this.modifyLastName=false
-          this.modifyEmail=false
-          this.modifypassword=false
-      },
+          axios
+            .put('http://localhost:8080/api/employee/'+ userId,   
+            {
+              first_name:this.first_name,
+              last_name:this.last_name,
+              email:this.email,
+              password: this.password
+            })
+            .then(response => console.log(response))
+              this.$emit('closeProfil')
+              this.modifyFirstName=false
+              this.modifyLastName=false
+              this.modifyEmail=false
+              this.modifypassword=false
+       // }
+        },
+          deleteAccount() {
+            const token = localStorage.getItem('userInfo')
+            var decode = jwt_decode(token)
+            let userId= decode.id
 
-      deleteAccount() {
-        const token = localStorage.getItem('userInfo')
-        var decode = jwt_decode(token)
-        let userId= decode.id
+            axios
+              .delete("http://localhost:8080/api/employee/"+ userId)
+              
+              .then(() => {
+                localStorage.clear();
+                location.replace(location.origin);
+              })
+              .catch(error => console.log(error));
+          },
 
-        axios
-          .delete("http://localhost:8080/api/employee/"+ userId)
-          
-          .then(() => {
-            localStorage.clear();
-            location.replace(location.origin);
-          })
-          .catch(error => console.log(error));
+            //Affiche les inputs de modification
+            modifyFN(){
+              this.modifyFirstName=true
+            },
+            modifyLN(){
+              this.modifyLastName=true
+            },
+            modifyE(){
+              this.modifyEmail=true
+            },
+            /*  modifyP(){
+              this.modifypassword=true
+            },*/
       },
-
-      //Affiche les inputs de modification
-      modifyFN(){
-        this.modifyFirstName=true
-      },
-      modifyLN(){
-        this.modifyLastName=true
-      },
-      modifyE(){
-        this.modifyEmail=true
-      },
-      modifyP(){
-        this.modifypassword=true
-      },
-    },
 }
 </script>
 <style scoped>
@@ -179,17 +191,38 @@ export default {
     width:90%;
     margin-left:auto;
     margin-right:auto;
+    padding-bottom: 1em;
     border: 1px solid grey;
     border-radius:0.5em;
     background: rgba(240, 242, 245);   
   }
+  
 
-  .envoyer, .suprrimer,.Annuler{
-    margin:0.5em;
+  .Annuler{
+    height:2em;
+    background:rgba(255, 0, 0, 0.527);
+    border-radius:0.5em;
+    margin:1em;
+    text-align:right;
+    margin-right:1%;
   }
 
   button{
     margin-left:0.5em;
+  }
+
+  .supprimer{
+    margin-bottom:1em;
+  }
+
+  p{
+    font-weight: bold;
+    font-style: italic;
+  }
+
+  span{
+    font-weight: normal;
+    font-style: normal;
   }
 
   input{
@@ -200,8 +233,22 @@ export default {
     outline: none;
   }
 
-  p{
-    margin-bottom: 0em;
+  .headProfil{
+    width:100%;
+     background: rgb(226, 228, 231);   
+    display:flex;
+  }
+
+  h3{
+    width:75%;
+    margin-bottom:0.2em;
+  }
+  a{
+    width:20%;
+    margin-left:0em;
+    margin-top:0.5em;
+    text-decoration: underline;
+    font-style: italic;
   }
 
   @media screen and(max-width:750px) {

@@ -1,8 +1,5 @@
-<template v-on:showThispublication="reload">
+<template >
     <section>
-
-        <!--Titre du groupe -->
-        <h1>Fil d'actualité </h1>
          <!-- Formulaire de publication-->
         <div class="addComment">
             <h3>Ajouter une publication</h3>
@@ -17,12 +14,14 @@
             <button class="bouton_bloc_ajout" @click="closeBlocComment">Annuler</button>        
             <button class="bouton_bloc_ajout" @click="PublieComment">Publier</button>
         </div>
+         <!--Titre du groupe -->
+         <h1>{{groupPage}}</h1>
       <!--Affichage des commentaires-->
-        <div class="bloc-commentaire" v-bind:key="index"  v-for="(publication,index) in publication" >
+        <div class="bloc-commentaire" v-bind:key="index"  v-for="(publication , index)  in publication"  >
             <div class='title'>
                 {{publication.title}}
                 <button class="btn_admin"  v-if='btnCheck' @click="check">Autoriser</button>
-                <span class="auteur_publication">{{publication.auteur}}</span>
+                <span class="auteur_publication"><small>par</small> {{publication.auteur}}</span>
             </div>
             <div class='commentaire' v-bind:key='index' v-show="noValidate">
                 {{publication.comment}}
@@ -50,7 +49,8 @@ export default {
             noValidate :true ,
             btnCensure:true,
             btnCheck:false,
-            index:true     
+            index:true ,
+
         }
     },
 
@@ -58,23 +58,31 @@ export default {
         ...mapState(['user']),
         infoUser(){
             return this.$store.state.user   
+        },  
+         groupPage:function(){
+           const clicGroup = localStorage.getItem('id_group') 
+            var name_group = clicGroup.split(",").slice(1)
+              //console.log(name_group)
+              return name_group[0]
         },
     },
 
     methods:{
-
+     
         nocheck(index){
         this.publication = this.publication.filter(i=> i != index)
         console.log(index)
         },
 
         PublieComment(){  
-            const clicGroup = localStorage.getItem('id_group')     
+            const clicGroup = localStorage.getItem('id_group')   
+            const groupId = clicGroup.split(",").slice(0,-1)
+
             axios
                 .post('http://localhost:8080/api/publication/',{
                     title:this.titleOfComment,
                     comment:this.textOfComment,
-                    id_groupe:clicGroup,
+                    id_groupe:groupId,
                     auteur:this.$store.state.user.last_name
                 })
                 .then((response)=>{   
@@ -87,12 +95,14 @@ export default {
     },
     
     mounted(){
-        const clicGroup = localStorage.getItem('id_group')     
+        
+        const clicGroup = localStorage.getItem('id_group')   
+            const groupId = clicGroup.split(",").slice(0,-1)    
         axios
-            .get ('http://localhost:8080/api/publication/'+ clicGroup)
+            .get ('http://localhost:8080/api/publication/'+ groupId)
             .then((response) => {
-                this.publication = response.data;
-                //console.log(this.publication)
+                this.publication = response.data.slice().reverse()
+               // console.log(this.publication)
             })
             .catch(error => console.log(error));
     } ,
@@ -106,7 +116,14 @@ export default {
         height:40em;
         overflow-y:scroll;
     }
-
+    h1{
+        text-align: left;
+        font-style: italic;
+        font-size: 1.2em;
+        margin-left: 1em;
+        margin-right: 1em;
+        border-bottom: 1px solid grey;
+    }
     h3{
         margin:0.2em;
         margin-bottom:1em;
@@ -144,8 +161,7 @@ export default {
         padding:0em 4em 0em 4em;
         border:1px solid grey;
         height:12em;
-        margin-left:0.6em;
-        margin-right:0.6em;
+        margin:0.5em 0.6em 0em 0.6em;
         border-radius:0.5em;
         background: rgba(175, 175, 175, 0.301);
         box-shadow: 5px 3px 5px grey;
