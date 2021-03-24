@@ -10,8 +10,10 @@
       <div class='formProfil' v-if='modifProfil'>
          <!-- mise en place de l'avatar-->
         <div class='bloc_avatar'>
-          <img src="" id ="avatar">
-            <input type='file' id='file' @change='previewImage'/>
+          <div id='avatar'>
+            
+          </div>
+            <input type='file' id='file' name='file' accept='image/*' @change='previewImage'/>
         </div>
         <div class="formulaire">
         <p>Nom :
@@ -78,8 +80,7 @@ export default {
           newPassword:null,
          // validated:true,
           advance:true,
-          general:false,
-         // selectedFile:''
+          general:false
         }    
       },
       computed:{
@@ -90,21 +91,33 @@ export default {
       }, 
       //click du bouton pour refermer la div
       methods:{ 
-        previewImage(event){
-          console.log(event)
-          this.selectedFile = event.target.files[0].name
-          console.log(this.selectedFile)
-          const reader = new FileReader();
-          const imageField = document.getElementById('avatar')
-          reader.onload=function(){
-            if(reader.readyState == 2){
-              imageField.src = reader.result;
-              
-            }
-          }
-          reader.readAsDataURL(event.target.files[0])
-        },
+          previewImage(event){
+            //console.log(event)
+            this.selectedFile = event.target.files[0].name
+            console.log(this.selectedFile)
+            const input = document.querySelector('input[type="file"]')
+            input.addEventListener('change',function(){
+            const reader = new FileReader()
+            reader.onload = function(){
+              const img = new Image()
+              img.style.width='100%'
+              img.onload=function(){
 
+              }
+              img.src = reader.result
+              document.getElementById('avatar').appendChild(img)
+            }
+            reader.readAsDataURL(input.files[0])
+            },false)
+        /*    let file = document.getElementById("file").files;
+            if(file.length>0){
+              var fileReader = new fileReader();
+              fileReader.onload =function(event){
+                document.getElementById('avatar').setAttribute("src",event.target.result);
+              }
+              fileReader.readAsDataUrl(file[0]);
+            }*/
+        },
         //Pour modifier le mdp
         next(){
           this.modifProfil= false,
@@ -142,6 +155,9 @@ export default {
            if(this.lastPassword !=this.newPassword){
           alert('error')
          }
+       /*   if(this.password !=this.$store.state.user.password){
+          alert('error')
+         // }else{*/
 
         // insertion de l'image
         const fd = new FormData();

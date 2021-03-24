@@ -1,8 +1,7 @@
 const express = require ('express');
 //const bodyParser = require('body-parser')
 const app = express();
-const cookieParser = require('cookie-parser');
-
+const path =require('path')
 
 const port = process.env.PORT || 8080;
 
@@ -15,7 +14,7 @@ app.use((req, res, next) => {
 
 app.use(express.urlencoded({extended:false}));
 app.use(express.json())
-app.use(cookieParser())
+
 //Definie la route racine
 app.get('/',(req,res)=>{
     res.send('Hello World');
@@ -26,6 +25,9 @@ const employeeRoutes = require('./src/routes/employee');
 const publicationRoutes = require('./src/routes/publication');
 const groupeRoutes = require('./src/routes/groupe');
 const userRoutes= require('./src/routes/user')
+
+app.use ('/images',express.static(path.join(__dirname,'images')));
+
 
 //create route employee
 app.use('/api/employee',employeeRoutes)

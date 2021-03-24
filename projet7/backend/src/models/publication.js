@@ -21,16 +21,15 @@ Publication.getAllPublication = (result)=>{
 }
 
 Publication.getOnepublication = (req,result )=>{
-    console.log('recup back model emplo L29',req)
-            dbConnect.query('SELECT * FROM publication WHERE id_groupe=?',[req],(err,res)=>{
-            if(err){
-                console.log('error while fetching employees',err);
-                result(null, err);
-            }else{
-              
+    //console.log('recup back model publi L29',req)
+    dbConnect.query('SELECT * FROM publication WHERE id_groupe=?',[req],(err,res)=>{
+        if(err){
+            //   console.log('error while fetching employees',err);
+            result(null, err);
+        }else{    
             result(null,res);
-            }
-        })
+        }
+    })
 },
 
 //création new models
@@ -38,7 +37,7 @@ Publication.getOnepublication = (req,result )=>{
 Publication.createPublication = (publicationReqData, result)=>{
     dbConnect.query('INSERT INTO publication SET ?', publicationReqData,(err,res)=>{
         if(err){
-            console.log(publicationReqData)
+        //    console.log(publicationReqData)
             console.log('err insertion data');
             result(null,err);
         }else{

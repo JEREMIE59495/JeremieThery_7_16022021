@@ -79,7 +79,7 @@ export default {
          // validated:true,
           advance:true,
           general:false,
-         // selectedFile:''
+          selectedFile:''
         }    
       },
       computed:{
@@ -92,10 +92,8 @@ export default {
       methods:{ 
         previewImage(event){
           console.log(event)
-          this.selectedFile = event.target.files[0].name
-          console.log(this.selectedFile)
-          const reader = new FileReader();
-          const imageField = document.getElementById('avatar')
+          var reader = new FileReader();
+          var imageField = document.getElementById('avatar')
           reader.onload=function(){
             if(reader.readyState == 2){
               imageField.src = reader.result;
