@@ -11,7 +11,7 @@
          <!-- mise en place de l'avatar-->
         <div class='bloc_avatar'>
           <img src="" id ="avatar">
-            <input type='file' id='file' @change='previewImage'/>
+            <input type='file' id='file' name='avatar' @change='previewImage'/>
         </div>
         <div class="formulaire">
         <p>Nom :
@@ -145,7 +145,7 @@ export default {
 
         // insertion de l'image
         const fd = new FormData();
-         fd.append('image',this.selectedFile)
+         fd.append('images',this.selectedFile)
        
         //recuperation token
           const token = localStorage.getItem('userInfo')
@@ -155,7 +155,7 @@ export default {
           //modification du profil
      
           axios
-            .put('http://localhost:8080/api/employee/'+ userId,   
+            .put('http://localhost:8080/api/employee/'+ userId, 
             {
               first_name:this.first_name,
               last_name:this.last_name,
@@ -163,7 +163,7 @@ export default {
               password: this.password,
               avatar:this.selectedFile
             })
-            .then(response => console.log(response))
+            .then(res => console.log('titi',res))
               this.$emit('closeProfil')
               this.modifyFirstName=false
               this.modifyLastName=false

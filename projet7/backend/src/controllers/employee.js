@@ -26,8 +26,11 @@ exports.getOneEmployee =(req,res)=>{
 
 //création new employee
 exports.createNewEmployee = (req,res)=> {
-    const imageUpdate = JSON.parse(req.body.avatar)
+    const object = JSON.parse(req.body.avatar)
+    console.log('L30 ctrl Employee', object)
     const employeeReqData = new employeeModel(imageUpdate)
+    console.log('toto',imageUpdate)
+
     console.log('employeeReqData',employeeReqData);
     if(req.body.constructor === Object && Object.keys(imageUpdate).lenght === 0){
         res.send(400).send({succes:false,message:'merci de remplir tous les champs'})
@@ -43,20 +46,22 @@ exports.createNewEmployee = (req,res)=> {
 
 //modifier un employee
 
-exports.modifyEmployee = (req,res)=>{
+exports.modifyEmployee = (req,res, next)=>{
     const employeeReqData = new employeeModel(req.body);
-    console.log('ctrl employee L48',employeeReqData.avatar);
+    console.log('TOTO',res.file)
+    console.log('ctrl employee L48',employeeReqData);
     const imageUpdate = employeeReqData.avatar
+    //
+ console.log('toto',imageUpdate)
+      const ob = req.body.avatar;
+ delete ob._id;
+   
     const img = new Avatar({
-        ...imageUpdate,
-        avatar: `${req.protocol}://${req.get('host')}/images/${employeeReqData.avatar}`,
-        
-    })
-  console.log('ctrl employee L56',img.avatar)
-  /* img.avatar.save()
-    .then(()=> res.status(201).json({message:'obj enregistré'}))
-    .catch(error =>res.status(400).json ({error}));
-*/
+        ...ob,
+        avatar: `${req.protocol}://${req.get('host')}/images/${employeeReqData.avatar}`  
+    }) 
+  //console.log('ctrl employee L56',avatar)
+
     if(req.body.constructor === Object && Object.keys(req.body).lenght === 0){
         res.send(400).send({succes:false,message:'merci de remplir tous les champs'})
     }else{

@@ -26,8 +26,7 @@ const publicationRoutes = require('./src/routes/publication');
 const groupeRoutes = require('./src/routes/groupe');
 const userRoutes= require('./src/routes/user')
 
-app.use ('/images',express.static(path.join(__dirname,'images')));
-
+app.use ('./images',express.static(path.join(__dirname,'images')))
 
 //create route employee
 app.use('/api/employee',employeeRoutes)

@@ -59,26 +59,26 @@ Employee.createEmployee = (employeeReqData, result)=>{
 
 Employee.modifyEmployee=(id,employeeReqData, result)=>{
     dbConnect.query('SELECT password FROM employees WHERE id=?',id,(err,res)=>{
-        //console.log(res[0].password);
+        //console.log(result);
         //console.log(employeeReqData.password)
         bcrypt.compare ( employeeReqData.password ,res[0].password) . then ( function ( result )  { 
-            if(result == false){  
-                console.log('mot de passe incorrect')
-               return err
-            }else{ 
+            if(result == true){ 
                 console.log('Mot de passe identique')
                 let hashedPassword =  bcrypt.hashSync(employeeReqData.password,5)
                 dbConnect.query("UPDATE employees SET first_name=?, last_name=?, email=? ,password=?, avatar=? WHERE id = ?",
                 [employeeReqData.first_name,employeeReqData.last_name,employeeReqData.email,hashedPassword,employeeReqData.avatar,id],(err, res)=>{
                     if(err){
                         console.log('erreur lors de la modification');
-                        result(null,err);
+                       // result(null,err);
                     }else{
                         console.log('modification effectuer');
                         console.log('model employee L76' ,employeeReqData.avatar)
                         //result(null,res)
                     }
                 })
+            }else if(result == false){ 
+                console.log('mot de passe incorrect')
+               return err 
             }
         })
     }) 
