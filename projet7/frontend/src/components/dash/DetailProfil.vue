@@ -8,11 +8,7 @@
         <button @click ="close" class="Annuler">X</button>
       </div>
       <div class='formProfil' v-if='modifProfil'>
-         <!-- mise en place de l'avatar-->
-        <div class='bloc_avatar'>
-          <img src="" id ="avatar">
-            <input type='file' id='file' name='avatar' @change='previewImage'/>
-        </div>
+        
         <div class="formulaire">
         <p>Nom :
         <span>  {{user.first_name}}</span>     
@@ -79,7 +75,6 @@ export default {
          // validated:true,
           advance:true,
           general:false,
-         // selectedFile:''
         }    
       },
       computed:{
@@ -90,20 +85,6 @@ export default {
       }, 
       //click du bouton pour refermer la div
       methods:{ 
-        previewImage(event){
-          console.log(event)
-          this.selectedFile = event.target.files[0].name
-          console.log(this.selectedFile)
-          const reader = new FileReader();
-          const imageField = document.getElementById('avatar')
-          reader.onload=function(){
-            if(reader.readyState == 2){
-              imageField.src = reader.result;
-              
-            }
-          }
-          reader.readAsDataURL(event.target.files[0])
-        },
 
         //Pour modifier le mdp
         next(){
@@ -143,10 +124,6 @@ export default {
           alert('error')
          }
 
-        // insertion de l'image
-        const fd = new FormData();
-         fd.append('images',this.selectedFile)
-       
         //recuperation token
           const token = localStorage.getItem('userInfo')
           var decode = jwt_decode(token)
@@ -156,12 +133,11 @@ export default {
      
           axios
             .put('http://localhost:8080/api/employee/'+ userId, 
-            {
+           {
               first_name:this.first_name,
               last_name:this.last_name,
               email:this.email,
-              password: this.password,
-              avatar:this.selectedFile
+              password: this.password, 
             })
             .then(res => console.log('titi',res))
               this.$emit('closeProfil')

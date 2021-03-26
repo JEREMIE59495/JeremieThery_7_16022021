@@ -26,12 +26,8 @@ exports.getOneEmployee =(req,res)=>{
 
 //création new employee
 exports.createNewEmployee = (req,res)=> {
-    const object = JSON.parse(req.body.avatar)
-    console.log('L30 ctrl Employee', object)
     const employeeReqData = new employeeModel(imageUpdate)
-    console.log('toto',imageUpdate)
 
-    console.log('employeeReqData',employeeReqData);
     if(req.body.constructor === Object && Object.keys(imageUpdate).lenght === 0){
         res.send(400).send({succes:false,message:'merci de remplir tous les champs'})
     }else{
@@ -48,25 +44,11 @@ exports.createNewEmployee = (req,res)=> {
 
 exports.modifyEmployee = (req,res, next)=>{
     const employeeReqData = new employeeModel(req.body);
-    console.log('TOTO',res.file)
-    console.log('ctrl employee L48',employeeReqData);
-    const imageUpdate = employeeReqData.avatar
-    //
- console.log('toto',imageUpdate)
-      const ob = req.body.avatar;
- delete ob._id;
-   
-    const img = new Avatar({
-        ...ob,
-        avatar: `${req.protocol}://${req.get('host')}/images/${employeeReqData.avatar}`  
-    }) 
-  //console.log('ctrl employee L56',avatar)
-
+    //console.log('ctrl employee L47',employeeReqData);
     if(req.body.constructor === Object && Object.keys(req.body).lenght === 0){
         res.send(400).send({succes:false,message:'merci de remplir tous les champs'})
     }else{
-        employeeModel.modifyEmployee(req.params.id, employeeReqData,(err, employee)=>{
-            
+        employeeModel.modifyEmployee(req.params.id, employeeReqData,(err, employee)=>{   
             if(err)
                 res.send(err);
                 res.json({status: true, message: 'Employee modifié avec succès !!',data: employee})   

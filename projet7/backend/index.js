@@ -1,7 +1,7 @@
 const express = require ('express');
 //const bodyParser = require('body-parser')
 const app = express();
-const path =require('path')
+
 
 const port = process.env.PORT || 8080;
 
@@ -26,7 +26,6 @@ const publicationRoutes = require('./src/routes/publication');
 const groupeRoutes = require('./src/routes/groupe');
 const userRoutes= require('./src/routes/user')
 
-app.use ('./images',express.static(path.join(__dirname,'images')))
 
 //create route employee
 app.use('/api/employee',employeeRoutes)
