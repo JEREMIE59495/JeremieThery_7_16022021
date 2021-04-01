@@ -52,7 +52,7 @@ export default {
             })
             .catch(error =>{
                 this.err = error.response.data.message
-              console.log(error.message);
+              console.log(this.err);
                 // console.log(error.response.data.message);
             })
         } else {  

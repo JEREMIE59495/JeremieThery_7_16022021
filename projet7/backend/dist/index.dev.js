@@ -1,4 +1,4 @@
-"use strict";
+/*"use strict";
 
 var express = require('express');
 
@@ -29,3 +29,27 @@ app.use(bodyParser.json()); //Ecoute du port
 app.listen(port, function () {
   console.log("Express server is running at port ".concat(port));
 });
+
+// test image
+var multer = require('multer');
+//const { networkInterfaces } = require('os');
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads')
+        console.log(req.file)
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + file.originalname)
+    }
+});
+const upload = multer({storage: storage});
+
+app.get('/',(req,res)=>{
+     res.render('home')
+})
+app.post('/',upload.any(),(req,res)=>{
+    console.log('TITI',req.body)
+    res.send('ok')
+})
+//*/

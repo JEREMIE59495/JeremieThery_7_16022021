@@ -5,6 +5,7 @@ const Publication = function(publication){
     this.comment = publication.comment;
     this.id_groupe = publication.id_groupe;
     this.auteur = publication.auteur;
+    this.image = publication.formData
 }
 
 //get all employee
@@ -21,24 +22,22 @@ Publication.getAllPublication = (result)=>{
 }
 
 Publication.getOnepublication = (req,result )=>{
-    console.log('recup back model emplo L29',req)
-            dbConnect.query('SELECT * FROM publication WHERE id_groupe=?',[req],(err,res)=>{
-            if(err){
-                console.log('error while fetching employees',err);
-                result(null, err);
-            }else{
-              
+    //console.log('recup back model publi L25',req)
+    dbConnect.query('SELECT * FROM publication WHERE id_groupe=?',[req],(err,res)=>{
+        if(err){
+            // console.log(err);
+            result(null, err);
+        }else{    
             result(null,res);
-            }
-        })
+        }
+    })
 },
 
 //création new models
-
 Publication.createPublication = (publicationReqData, result)=>{
     dbConnect.query('INSERT INTO publication SET ?', publicationReqData,(err,res)=>{
         if(err){
-            console.log(publicationReqData)
+        //    console.log('recup back model publi L40',publicationReqData)
             console.log('err insertion data');
             result(null,err);
         }else{
@@ -58,7 +57,6 @@ Publication.modifyPublication=(id,publicationReqData, result)=>{
         }else{
             console.log('modification effectuer');
             result(null,res);
-
         }
     })
 }

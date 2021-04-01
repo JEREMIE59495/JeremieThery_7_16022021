@@ -8,12 +8,13 @@
         <button @click ="close" class="Annuler">X</button>
       </div>
       <div class='formProfil' v-if='modifProfil'>
+     
+        <div class="formulaire">
         <p>Nom :
         <span>  {{user.first_name}}</span>     
           <input type:text v-show='modifyFirstName' v-model="first_name">
           <button @click='modifyFN'><i class="fas fa-pen"></i></button>
-        </p>
-        
+        </p> 
         <p  >Prénom :
           <span> {{user.last_name}} </span>
           <input type:text v-if='modifyLastName' v-model ='last_name'>
@@ -25,10 +26,12 @@
             <button @click='modifyE'><i class="fas fa-pen"></i></button>
         </p>
         <p>Confirmer votre mot de passe :
-            <input id='pass' type:password  v-model='password' >
+            <input id='pass' type="password" v-model='password' >
         </p>
-      
-       </div> <div class="modifPassword" v-if='modifPassword'>
+        </div>
+       
+      </div> 
+       <div class="modifPassword" v-if='modifPassword'>
        <p>Ancien mot de passe :
             <input type:password  v-model='lastPassword'>
         </p>
@@ -71,7 +74,8 @@ export default {
           newPassword:null,
          // validated:true,
           advance:true,
-          general:false
+          general:false,
+        //  selectedFile:''
         }    
       },
       computed:{
@@ -82,6 +86,7 @@ export default {
       }, 
       //click du bouton pour refermer la div
       methods:{ 
+   
         //Pour modifier le mdp
         next(){
           this.modifProfil= false,
@@ -123,6 +128,11 @@ export default {
           alert('error')
          // }else{*/
 
+        // insertion de l'image
+     /*   const fd = new FormData();
+         fd.append('image',this.selectedFile)
+       */
+        //recuperation token
           const token = localStorage.getItem('userInfo')
           var decode = jwt_decode(token)
           let userId= decode.id
@@ -135,7 +145,8 @@ export default {
               first_name:this.first_name,
               last_name:this.last_name,
               email:this.email,
-              password: this.password
+              password: this.password,
+        //      avatar:this.selectedFile
             })
             .then(response => console.log(response))
               this.$emit('closeProfil')
@@ -186,6 +197,10 @@ export default {
       text-align:center; 
       background: rgba(175, 175, 175, 0.075)
   }
+  .formProfil{
+    width:100%;
+    display:flex;
+  }
 
   .formModifProfil{
     width:90%;
@@ -194,7 +209,25 @@ export default {
     padding-bottom: 1em;
     border: 1px solid grey;
     border-radius:0.5em;
-    background: rgba(240, 242, 245);   
+    background: rgba(240, 242, 245);  
+  }
+  .formulaire{
+    width:65%;
+  }
+
+  .bloc_avatar{
+    width:35%;
+    border-right:1px solid grey;
+  }
+  #avatar{
+    background:white;
+    width:50%;
+    height: 8em;
+    margin-top:0.5em;
+    margin-bottom:0.5em;
+    margin-left:auto;
+    margin-right:auto;
+    padding:0;
   }
   
 
@@ -216,6 +249,8 @@ export default {
   }
 
   p{
+    margin-left:2em;
+    text-align:left;
     font-weight: bold;
     font-style: italic;
   }
@@ -225,11 +260,17 @@ export default {
     font-style: normal;
   }
 
+  img{
+    background:pink;
+    width:100%;
+    height:15em;
+  }
+
   input{
-    width:7em;
+    /*width:7em;*/
     margin-left:0.5em;
-    border:0.2px solid grey;
-    border-bottom: 1px solid black;
+   /* border:0.2px solid grey;*/
+   /* border-bottom: 1px solid black;*/
     outline: none;
   }
 

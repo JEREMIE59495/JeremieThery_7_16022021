@@ -13,6 +13,12 @@
             </div>
             <button class="bouton_bloc_ajout" @click="closeBlocComment">Annuler</button>        
             <button class="bouton_bloc_ajout" @click="PublieComment">Publier</button>
+    <!-- test envoi photo-->
+            <form @submit.prevent="handleSubmit" method="post" enctype="multipart/form-data">
+            <input type="file" name="image" @change="uploadFile" >
+           <button class="btn btn-success btn-block btn-lg">Upload</button>
+            </form>
+        
         </div>
          <!--Titre du groupe -->
          <h1>{{groupPage}}</h1>
@@ -50,7 +56,7 @@ export default {
             btnCensure:true,
             btnCheck:false,
             index:true ,
-
+            files:[]
         }
     },
 
@@ -68,7 +74,36 @@ export default {
     },
 
     methods:{
-     
+    // test 
+  uploadFile (event) {
+        this.files = event.target.files[0]
+        this.nameFiles =event.target.files[0].name
+       // this.files = this.file.files[0]
+        console.log(this.files)
+       
+       
+        console.log( this.nameFiles)
+       
+  },
+  updateFile(content, filename, contentType){
+    if(!contentType) contentType = 'application/octet-stream';
+        var a = document.createElement('a');
+        var blob = new Blob([content], {'type':contentType});
+        a.href = window.URL.createObjectURL(blob);
+        a.download = filename;
+        a.click();
+},
+    handleSubmit() {
+          const formData = new FormData();
+          
+            formData.set('file', this.files[0])
+          
+          axios.post('http://localhost:8080/api/publication/', formData, {
+          }).then((res) => {
+            console.log(res.data)
+          })
+        },
+     //
         nocheck(index){
         this.publication = this.publication.filter(i=> i != index)
         console.log(index)
@@ -77,13 +112,17 @@ export default {
         PublieComment(){  
             const clicGroup = localStorage.getItem('id_group')   
             const groupId = clicGroup.split(",").slice(0,-1)
-
+ /*const formData = new FormData();
+          formData.append('files', this.files[0])*/
+            
             axios
                 .post('http://localhost:8080/api/publication/',{
                     title:this.titleOfComment,
                     comment:this.textOfComment,
                     id_groupe:groupId,
-                    auteur:this.$store.state.user.last_name
+                    auteur:this.$store.state.user.last_name,
+                //    formData:this.files
+                
                 })
                 .then((response)=>{   
                     console.log(response)

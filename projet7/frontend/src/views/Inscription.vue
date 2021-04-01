@@ -14,8 +14,6 @@
                 <div class=" mail">
                     <label for="mail">E-mail :</label>
                     <input type="email" id="mail" name="user_mail" v-model="dataSignup.email">
-                    {{message}}
-                <span>{{message}}</span>
                 </div>
                 <div class="password">
                     <label for="password">Mot de passe :</label>
@@ -26,7 +24,7 @@
                 <small>Déjà inscrit : <router-link to="/Connexion">Connectez-vous !</router-link></small>
             </fieldset>
         </div>
-   <span> {{err}}</span>
+   <span> {{err}} </span>
     </div>
 </template>
 <script>
@@ -41,11 +39,12 @@ export default {
                 email:null,
                 password:null
             },
-           
+           err:'',
         }
     },
 
     methods:{
+
         signupUser:function(){
             console.log(this.dataSignup)
             if(
@@ -59,7 +58,7 @@ export default {
                 })
                 .catch(error =>{
                     this.err = error.response.data.message
-                    console.log(error.message);
+                    console.log(this.err)
                 })
             } else {     
                 console.log('Inscription non envoyé !!')
@@ -112,5 +111,9 @@ export default {
 
     #password{
         margin: 0.5em 2em 1em 0.5em;
+    }
+    span{
+        color:red;
+        font-weight: bold;
     }
 </style>
