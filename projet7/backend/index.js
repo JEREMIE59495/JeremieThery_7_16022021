@@ -1,7 +1,7 @@
 const express = require ('express');
 //const bodyParser = require('body-parser')
 const app = express();
-//const path =require('path')
+
 
 
 const port = process.env.PORT || 8080;
@@ -27,9 +27,6 @@ const publicationRoutes = require('./src/routes/publication');
 const groupeRoutes = require('./src/routes/groupe');
 const userRoutes= require('./src/routes/user')
 
-//app.use ('/uploads',express.static(path.join(__dirname,'uploads')));
-
-
 //create route employee
 app.use('/api/employee',employeeRoutes)
 app.use('/api/publication',publicationRoutes)
@@ -42,28 +39,4 @@ app.listen(port,()=>{
 });
 
 
-// test image
-var multer = require('multer');
-//const { networkInterfaces } = require('os');
-const file='toto'
-var storage = multer.diskStorage({
-  
-    destination: function (req, file, cb) { 
-        cb(null, './uploads')
-       console.log('ICI',file)
-    },
-    
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + file.originalname)
-    }
-});
-const upload = multer({storage: storage});
 
-app.get('/',(req,res)=>{
-     res.render('home')
-})
-app.post('/',upload.any(),(req,res)=>{
-    console.log('TITI',req.body)
-    res.send('ok')
-})
-//
