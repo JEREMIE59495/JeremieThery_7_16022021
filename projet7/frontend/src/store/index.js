@@ -51,11 +51,11 @@ export default new Vuex.Store({
       .catch(error => {
         console.log(error); 
       });         
+      },
+      changeParam(contexte, value) {
+        contexte.commit('modifOption',value)
+      } 
     },
-    changeParam(contexte, value) {
-      contexte.commit('modifOption',value)
-    } 
-  },
-  modules: {
+    modules: {
   }
 })

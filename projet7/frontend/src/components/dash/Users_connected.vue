@@ -22,7 +22,6 @@ export default {
         .get ('http://localhost:8080/api/employee')
         .then((response) => {
             this.userConnected = response.data;
-       // console.log(this.userConnected)
         })
         .catch(error => console.log(error));
     },

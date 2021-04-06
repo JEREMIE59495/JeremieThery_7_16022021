@@ -8,44 +8,38 @@
         <button @click ="close" class="Annuler">X</button>
       </div>
       <div class='formProfil' v-if='modifProfil'>
-     
         <div class="formulaire">
-        <p>Nom :
-        <span>  {{user.first_name}}</span>     
-          <input type:text v-show='modifyFirstName' v-model="first_name">
-          <button @click='modifyFN'><i class="fas fa-pen"></i></button>
-        </p> 
-        <p  >Prénom :
-          <span> {{user.last_name}} </span>
-          <input type:text v-if='modifyLastName' v-model ='last_name'>
-          <button @click='modifyLN'><i class="fas fa-pen"></i></button>
-        </p>
-          <p>E-mail :
-            <span>{{user.email}}</span>
-            <input type:email v-if='modifyEmail' v-model='email'>
-            <button @click='modifyE'><i class="fas fa-pen"></i></button>
-        </p>
-        <p>Confirmer votre mot de passe :
-            <input id='pass' type="password" v-model='password' >
-        </p>
+          <p>Nom :
+          <span>  {{user.first_name}}</span>     
+            <input type:text v-show='modifyFirstName' v-model="first_name">
+            <button @click='modifyFN'><i class="fas fa-pen"></i></button>
+          </p> 
+          <p  >Prénom :
+            <span> {{user.last_name}} </span>
+            <input type:text v-if='modifyLastName' v-model ='last_name'>
+            <button @click='modifyLN'><i class="fas fa-pen"></i></button>
+          </p>
+            <p>E-mail :
+              <span>{{user.email}}</span>
+              <input type:email v-if='modifyEmail' v-model='email'>
+              <button @click='modifyE'><i class="fas fa-pen"></i></button>
+          </p>
+          <p>Confirmer votre mot de passe :
+              <input id='pass' type="password" v-model='password' @keyup="ctrlMdp" >
+          </p>
         </div>
-       
       </div> 
-       <div class="modifPassword" v-if='modifPassword'>
-       <p>Ancien mot de passe :
-            <input type:password  v-model='lastPassword'>
+      <div class="modifPassword" v-if='modifPassword'>
+        <p>Ancien mot de passe :
+          <input type="password"  v-model='password'>
         </p>
         <p>Nouveau mot de passe :
-            <input id='pass' type:password v-model='newPassword'>
+            <input id='pass' type="password" v-model='newPassword' placeholder=" 8 caractères minmum" @keyup="ctrlMdp">
         </p>
         <button class='supprimer' type="submit" @click ="deleteAccount">Supprimer le compte</button>  
-    </div>
-    <button class='envoyer' type="submit" @click="updateClose" :disabled='!password.length' >Enregistrer</button>
-       
-    </div>
-    
-      <!-- <button class="Annuler" @click ="close">Annuler</button> -->
-        
+      </div>
+      <button class='envoyer' id='envoyer' type="submit" @click="updateClose" :disabled ="submitted" >Enregistrer</button>  
+    </div>  
   </div>        
 </template>
 
@@ -70,12 +64,11 @@ export default {
           last_name: null,
           email: null,
           password:"",
-          lastPassword:null,
           newPassword:null,
          // validated:true,
           advance:true,
           general:false,
-        //  selectedFile:''
+          submitted:""
         }    
       },
       computed:{
@@ -107,8 +100,18 @@ export default {
         close(){
           this.$emit('closeProfil')
         },
+        
+        // Contrôle longueur mot de passe
+        ctrlMdp(){ 
+          if(this.password.length < 8){
+              this.submitted=true
+          }else{
+            this.submitted=false
+          }
+        },
 
         updateClose(){
+
           if(this.first_name == null){
             this.first_name=this.$store.state.user.first_name
           }
@@ -121,17 +124,12 @@ export default {
             this.email=this.$store.state.user.email
           }
 
-           if(this.lastPassword !=this.newPassword){
-          alert('error')
+          if(this.password == null || this.newPassword == null || this.password != this.newPassword){
+               console.log('tvb')
+         }else {
+             alert('Votre mot de passe doit être différent')
          }
-       /*   if(this.password !=this.$store.state.user.password){
-          alert('error')
-         // }else{*/
 
-        // insertion de l'image
-     /*   const fd = new FormData();
-         fd.append('image',this.selectedFile)
-       */
         //recuperation token
           const token = localStorage.getItem('userInfo')
           var decode = jwt_decode(token)
@@ -146,7 +144,8 @@ export default {
               last_name:this.last_name,
               email:this.email,
               password: this.password,
-        //      avatar:this.selectedFile
+              //modif mdp
+              newPassword:this.newPassword
             })
             .then(response => console.log(response))
               this.$emit('closeProfil')

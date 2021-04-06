@@ -18,8 +18,7 @@
         name:'createGroup',
        data(){
             return{             
-                  name_group :null,
-                        
+                  name_group :null,         
             }
         }, 
 
@@ -56,8 +55,7 @@
     }
 
     button{
-        margin: 1em;
-       
+        margin: 1em;  
     }
 
     .bloc_new_group{
@@ -83,7 +81,7 @@
         }
 
         .group{
-            width:100%;
+            width:98%;
             margin-top:0em;
         }
 
@@ -102,6 +100,7 @@
             width:100%;
             margin:0;
             float:right;
+            
         }
 
         .group{
