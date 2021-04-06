@@ -6,12 +6,12 @@ exports.getAllGroupe = (req, res)=>{
     groupeModel.getAllGroupe((err,groupelist)=>{
         if(err)
         res.send(err);
-    //    console.log('Groupelist',groupelist);
+    //console.log('Groupelist',groupelist);
          res.send(groupelist);
     }) 
  }
-//création new groupe
 
+//création new groupe
 exports.createNewGroupe = (req,res)=> {
   //  console.log(req.body)
     const groupeReqData = new groupeModel(req.body);

@@ -14,21 +14,20 @@
             <button class="bouton_bloc_ajout" @click="closeBlocComment">Annuler</button>        
             <button class="bouton_bloc_ajout" @click="PublieComment">Publier</button>
         </div>
-         <!--Titre du groupe -->
-         <h1>{{groupPage}}</h1>
-      <!--Affichage des commentaires-->
+        <!--Titre du groupe -->
+        <h1>{{groupPage}}</h1>
+        <!--Affichage des commentaires-->
         <div class="bloc-commentaire" v-bind:key="index"  v-for="(publication , index)  in publication"  >
             <div class='title'>
                 {{publication.title}}
-                <button class="btn_admin"  v-if='btnCheck' @click="check">Autoriser</button>
                 <span class="auteur_publication"><small>par</small> {{publication.auteur}}</span>
             </div>
-            <div class='commentaire' v-bind:key='index' v-show="noValidate">
+            <div class='commentaire'>
                 {{publication.comment}}
             </div> 
-            <div class="bloc_admin" v-if='user.password >=1'>
+            <!-- a controler -->
+            <div class="bloc_admin" v-if='user.password >= 1'>
                 <button class="btn_admin" v-bind:key='index'  @click="nocheck(publication,index)">Supprimer</button>
-                
             </div>
         </div>
     </section>
@@ -44,13 +43,9 @@ export default {
             //Etat actuel des input formulaire
             textOfComment:null,
             titleOfComment:null,
-            publication:true,
-            bouton_ajout:true, 
+            publication:true, 
             noValidate :true ,
-            btnCensure:true,
-            btnCheck:false,
-            index:true ,
-
+            index:true,
         }
     },
 
@@ -59,19 +54,19 @@ export default {
         infoUser(){
             return this.$store.state.user   
         },  
-         groupPage:function(){
-           const clicGroup = localStorage.getItem('id_group') 
+        
+        groupPage:function(){
+            const clicGroup = localStorage.getItem('id_group') 
             var name_group = clicGroup.split(",").slice(1)
-              //console.log(name_group)
+            //console.log(name_group)
               return name_group[0]
         },
     },
 
     methods:{
-     
         nocheck(index){
-        this.publication = this.publication.filter(i=> i != index)
-        console.log(index)
+            this.publication = this.publication.filter(i=> i !=index)
+            console.log(index)
         },
 
         PublieComment(){  
@@ -83,7 +78,9 @@ export default {
                     title:this.titleOfComment,
                     comment:this.textOfComment,
                     id_groupe:groupId,
-                    auteur:this.$store.state.user.last_name
+                    auteur:this.$store.state.user.last_name,
+                //    formData:this.files
+                
                 })
                 .then((response)=>{   
                     console.log(response)
@@ -105,9 +102,7 @@ export default {
                // console.log(this.publication)
             })
             .catch(error => console.log(error));
-    } ,
-
-    
+    },  
 }
 </script>
 <style scoped>
@@ -116,6 +111,7 @@ export default {
         height:40em;
         overflow-y:scroll;
     }
+
     h1{
         text-align: left;
         font-style: italic;
@@ -124,6 +120,7 @@ export default {
         margin-right: 1em;
         border-bottom: 1px solid grey;
     }
+
     h3{
         margin:0.2em;
         margin-bottom:1em;
@@ -145,16 +142,6 @@ export default {
     h4{
         margin:0em;
         text-align:left;
-    }
-
-    .bloc_bouton_ajout{
-        width:100%;
-        height:2em;
-        background:lightseagreen
-    }
-
-    .bouton_ajout{
-        float:left;
     }
 
     .addComment{
@@ -182,6 +169,7 @@ export default {
     .title{
         text-align:left;
         padding:0.2em 1em 0.2em 1em ;
+        background:rgba(255,215,215);
     }
 
     .auteur_publication{
@@ -202,6 +190,8 @@ export default {
         border-radius:0.4em;
         background:white;
         box-shadow: 5px 3px 5px grey;
+        border:2px solid black;
+        color:black;
     }
 
     .commentaire{
@@ -215,8 +205,7 @@ export default {
         border-top:1px solid black;
     }
 
-    .btn_admin{
-        
+    .btn_admin{  
         margin:0.2em 1em 0.2em 1em;
     }
 
@@ -246,10 +235,15 @@ export default {
         .publication{
             height:39em;
         }
+        .addComment{
+            margin-right:1.5em;
+        }
     }
+
     @media screen and (min-width:751px) and (max-width:950px){
         .publication{
             height:auto;
         }
   }
+
 </style>

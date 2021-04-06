@@ -31,11 +31,11 @@
             }, 
 
             showThisPublication(id_groupe, name_group){
-                const qqc=[]
-                qqc.push(id_groupe)
-                qqc.push(name_group)
-                localStorage.setItem('id_group', qqc),
-                this.$emit('showThispublication', qqc)
+                const infoGroup=[]
+                infoGroup.push(id_groupe)
+                infoGroup.push(name_group)
+                localStorage.setItem('id_group', infoGroup),
+                this.$emit('showThispublication', infoGroup)
                 document.location.reload();
             }
         },
@@ -55,7 +55,7 @@
 <style scoped>
     .groupe{
         width: 22%;
-        height: 20.6em;
+        height: 23.6em;
     }
 
     .listGroup{
@@ -86,12 +86,14 @@
     }
 
     .addNewGroup{
-        padding-left:2em;
+        width:100%;
+        height:1.5em;
+        padding-left:0em;
         display:flex
     }
 
     .fa-plus{
-        margin-right:1em;
+        margin-right:0.5em;
     }
 
     p{
@@ -103,7 +105,7 @@
         height:1.5em;
         border-radius: 0.5em;
         margin-right:1em;
-        background: lightsalmon;
+        background:rgba(255,215,215);
     }
 
     @media  screen and (max-width:600px) {
@@ -124,13 +126,14 @@
                 height:auto;
         }
         .btn_groupe{
-            width:100%;
+            width:15em;
         }
         .addNewGroup{
-            width:100%;
+            width:15em;
             padding-left:50%;
         }
     }
+
     @media screen and (min-width:751px) and (max-width:950px){
         .listGroup{
             width:100%

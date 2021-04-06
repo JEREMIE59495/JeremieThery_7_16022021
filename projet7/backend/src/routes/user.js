@@ -7,8 +7,6 @@ const password= require('../middleware/password')
 router.post('/signup',password,userCtrl.signup);
 router.post('/login',userCtrl.login);
 
-//router.get('/login', userCtrl.getOneEmployee)  // cette route n'est pas bonne
-
 module.exports = router;
 
  

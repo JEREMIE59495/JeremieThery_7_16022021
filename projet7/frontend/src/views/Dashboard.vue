@@ -65,7 +65,6 @@
       },
 
       closeProfil:function(){
-        
         this.profilDisplay= false;
         this.publicationDisplay= true;
         document.location.reload();
@@ -126,6 +125,7 @@
       margin-top:-41.4em;
     }
   }
+
   @media screen and (min-width:751px) and (max-width:950px){
   
     .pop_up{
@@ -135,8 +135,6 @@
       margin-top:-41.5em;
     }
   }
-
-
 </style>
 
 

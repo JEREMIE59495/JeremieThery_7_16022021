@@ -1,5 +1,4 @@
 var dbConnect =require('../../config/db.config');
-//var result = require('../controllers/employee')
 const bcrypt = require('bcrypt')
  
 const Employee = function(employee){
@@ -7,6 +6,9 @@ const Employee = function(employee){
     this.last_name = employee.last_name;
     this.email = employee.email;
     this.password = employee.password 
+
+    this.newPassword = employee.newPassword
+
 }
 
 //get all employee
@@ -18,11 +20,16 @@ Employee.getAllEmployees = (result)=>{
         }else{
             console.log('Données employees chargées avec succes !!');
             result(null,res);
-        }
+
+        }  
+
     })
 }
 
 Employee.getOneEmployee = (req,result )=>{
+
+   console.log('recup back model emplo L27',req)
+
             dbConnect.query('SELECT * FROM employees WHERE id=?',[req],(err,res)=>{
             if(err){
                 console.log('error while fetching employees',err);
@@ -53,11 +60,17 @@ Employee.createEmployee = (employeeReqData, result)=>{
 
 Employee.modifyEmployee=(id,employeeReqData, result)=>{
     dbConnect.query('SELECT password FROM employees WHERE id=?',id,(err,res)=>{
-        //console.log(result);
-        //console.log(employeeReqData.password)
+
+        console.log(res[0].password);
+        console.log('model employee L59',employeeReqData)
         bcrypt.compare ( employeeReqData.password ,res[0].password) . then ( function ( result )  { 
             if(result == true){ 
                 console.log('Mot de passe identique')
+                // changement du mot de passe
+                    if(employeeReqData.newPassword != null){
+                        employeeReqData.password = employeeReqData.newPassword
+                    }
+
                 let hashedPassword =  bcrypt.hashSync(employeeReqData.password,5)
                 dbConnect.query("UPDATE employees SET first_name=?, last_name=?, email=? ,password=? WHERE id = ?",
                 [employeeReqData.first_name,employeeReqData.last_name,employeeReqData.email,hashedPassword,id],(err, res)=>{
@@ -65,14 +78,17 @@ Employee.modifyEmployee=(id,employeeReqData, result)=>{
                         console.log('erreur lors de la modification');
                        // result(null,err);
                     }else{
-                        console.log('modification effectuer');
+
+                        console.log('modification effectuée');
+
                         //result(null,res)
                     }
                 })
             }else if(result == false){ 
-                console.log('mot de passe incorrect')
-               return err 
-            }
+
+                console.log('mot de passe erronné')
+            }   
+
         })
     }) 
 },

@@ -1,8 +1,7 @@
 const express = require ('express');
 //const bodyParser = require('body-parser')
 const app = express();
-
-
+master
 const port = process.env.PORT || 8080;
 
 app.use((req, res, next) => {
@@ -37,3 +36,6 @@ app.use('/api/auth',userRoutes)
 app.listen(port,()=>{
     console.log(`Express server is running at port ${port}`);
 });
+
+
+

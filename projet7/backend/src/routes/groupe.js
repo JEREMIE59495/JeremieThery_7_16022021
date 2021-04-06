@@ -2,7 +2,6 @@ const express = require ('express');
 const router = express.Router();
 
 const groupeController = require('../controllers/groupe');
-//const Publication = require('../models/publication');
 
 router.get('/', groupeController.getAllGroupe);
 router.post('/', groupeController.createNewGroupe);

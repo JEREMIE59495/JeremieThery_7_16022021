@@ -2,23 +2,23 @@ const publicationModel = require ('../models/publication');
 
 //get toutes les publications
 exports.getAllPublication = (req, res)=>{
-   // console.log('ici la liste des  publication')
    publicationModel.getAllPublication((err,publication)=>{
-       console.log('nous sommes ici');
-       if(err)
-       res.send(err);
-       console.log('publication',publication);
-        res.send(publication);
+        console.log('nous sommes ici');
+        if(err)
+            res.send(err);
+            console.log('publication',publication);
+            res.send(publication);
    })
 }
+
 exports.getOnePublication =(req,res)=>{
-   // console.log('back ctrl pub L16 :',req)
+
     publicationModel.getOnepublication(req.params.id, (err,employee)=>{
         if(err)
         res.send(err);
-     //   console.log(req.params.id);
+     //console.log(req.params.id);
         res.send(employee);
-    //  console.log(employee)
+    //console.log(employee)
     })
 }
 
@@ -29,6 +29,7 @@ exports.getOnePublication =(req,res)=>{
 exports.createNewPublication = (req,res)=> {
     const publicationReqData = new publicationModel(req.body);
     console.log('publicationReqData',publicationReqData);
+   
     if(req.body.constructor === Object && Object.keys(req.body).lenght === 0){
         res.send(400).send({succes:false,message:'merci de remplir tous les champs'})
     }else{
@@ -39,8 +40,9 @@ exports.createNewPublication = (req,res)=> {
         })
     }
 }
-//modifier un employee
 
+
+//modifier un employee
 exports.modifyPublication = (req,res)=>{
     const publicationReqData = new publicationModel(req.body);
     console.log('publicationReqData modify',publicationReqData);
