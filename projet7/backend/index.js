@@ -1,9 +1,7 @@
 const express = require ('express');
 //const bodyParser = require('body-parser')
 const app = express();
-
-
-
+master
 const port = process.env.PORT || 8080;
 
 app.use((req, res, next) => {
@@ -26,6 +24,7 @@ const employeeRoutes = require('./src/routes/employee');
 const publicationRoutes = require('./src/routes/publication');
 const groupeRoutes = require('./src/routes/groupe');
 const userRoutes= require('./src/routes/user')
+
 
 //create route employee
 app.use('/api/employee',employeeRoutes)
