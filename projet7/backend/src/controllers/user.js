@@ -2,12 +2,8 @@ const dbConnect = require('../../config/db.config');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const toto = require ('../models/password');
-
-
 exports.signup=(req, res)=>{
     const {first_name, last_name, email, password, isAdmin} = req.body;
-
     //console.log(req.body.password)
     dbConnect.query('SELECT email FROM employees WHERE email =?',[email], async(error, result) =>{
         if(error){
@@ -16,16 +12,6 @@ exports.signup=(req, res)=>{
         }
         if(result.length > 0){ 
              res.status(401).json({message:"Cette email est déjà utilisée"})
-
-    console.log(req.body.password)
-    dbConnect.query('SELECT email FROM employees WHERE email =?',[email], async(error, result) =>{
-        if(error){
-            console.log(error); 
-            return res.status(401).json({message:"erreur"})     
-        }
-        if(result.length > 0){ 
-            return res.status(401).json({message:"Cette email est déjà utilisée"})
-
         }
         let hashedPassword = await bcrypt.hash(password,5)
        // console.log(hashedPassword)
@@ -48,12 +34,7 @@ exports.login = async (req, res)=> {
                 return res.status(401).json({message:"utilisateur n'est pas enregistré"})      
              }
         dbConnect.query('SELECT * FROM employees WHERE email = ?', [email], async (error, result) =>{
-
             // console.log( 'ctrl.user ligne 37' , result)    
-
-          // console.log( 'retour console.log ctrl.user ligne 41 : ' , result)
-           //return res.status(200).json({result:result})      
-
             if(!result || !(await bcrypt.compare(password, result[0].password) )){
                 res.status(401).json({message:' Votre email ou votre mot de passe est incorrecte'})
             }else{
@@ -74,6 +55,7 @@ exports.login = async (req, res)=> {
         console.log(error)
     }  
 }
+
 
 
 
