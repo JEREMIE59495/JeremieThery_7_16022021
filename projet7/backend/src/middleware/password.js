@@ -3,6 +3,7 @@ const passwordSchema = require('../models/password');
 
 // Contrôle les caractères du Mdp
 module.exports = (req, res, next) => {
+
     console.log(res)
     if (!passwordSchema.validate(req.body.password))
     {         
@@ -12,3 +13,5 @@ module.exports = (req, res, next) => {
     }
     
 };
+
+

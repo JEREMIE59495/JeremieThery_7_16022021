@@ -8,6 +8,7 @@
         <button @click ="close" class="Annuler">X</button>
       </div>
       <div class='formProfil' v-if='modifProfil'>
+
         <div class="formulaire">
           <p>Nom :
           <span>  {{user.first_name}}</span>     
@@ -32,6 +33,7 @@
       <div class="modifPassword" v-if='modifPassword'>
         <p>Ancien mot de passe :
           <input type="password"  v-model='password'>
+
         </p>
         <p>Nouveau mot de passe :
             <input id='pass' type="password" v-model='newPassword' placeholder=" 8 caractères minmum" @keyup="ctrlMdp">
@@ -68,7 +70,9 @@ export default {
          // validated:true,
           advance:true,
           general:false,
+
           submitted:""
+
         }    
       },
       computed:{
@@ -79,7 +83,7 @@ export default {
       }, 
       //click du bouton pour refermer la div
       methods:{ 
-   
+
         //Pour modifier le mdp
         next(){
           this.modifProfil= false,
@@ -138,16 +142,18 @@ export default {
           //modification du profil
      
           axios
-            .put('http://localhost:8080/api/employee/'+ userId,   
-            {
+            .put('http://localhost:8080/api/employee/'+ userId, 
+           {
               first_name:this.first_name,
               last_name:this.last_name,
               email:this.email,
+
               password: this.password,
               //modif mdp
               newPassword:this.newPassword
+
             })
-            .then(response => console.log(response))
+            .then(res => console.log('titi',res))
               this.$emit('closeProfil')
               this.modifyFirstName=false
               this.modifyLastName=false

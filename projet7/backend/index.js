@@ -1,6 +1,8 @@
 const express = require ('express');
 //const bodyParser = require('body-parser')
 const app = express();
+//const path =require('path')
+
 
 const port = process.env.PORT || 8080;
 
@@ -25,6 +27,9 @@ const publicationRoutes = require('./src/routes/publication');
 const groupeRoutes = require('./src/routes/groupe');
 const userRoutes= require('./src/routes/user')
 
+//app.use ('/uploads',express.static(path.join(__dirname,'uploads')));
+
+
 //create route employee
 app.use('/api/employee',employeeRoutes)
 app.use('/api/publication',publicationRoutes)
@@ -35,6 +40,3 @@ app.use('/api/auth',userRoutes)
 app.listen(port,()=>{
     console.log(`Express server is running at port ${port}`);
 });
-
-
-

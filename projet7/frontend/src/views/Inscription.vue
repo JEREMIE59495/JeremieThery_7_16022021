@@ -22,7 +22,9 @@
                 <small>Déjà inscrit : <router-link to="/Connexion">Connectez-vous !</router-link></small>
             </fieldset>
         </div>
+
    <span> {{err}} </span>
+
     </div>
 </template>
 <script>
@@ -37,7 +39,9 @@ export default {
                 email:null,
                 password:null
             },
+
            err:'',
+
         }
     },
 
@@ -55,7 +59,9 @@ export default {
                 })
                 .catch(error =>{
                     this.err = error.response.data.message
+
                     console.log(this.err)
+
                 })
             } else {     
                 console.log('Inscription non envoyé !!')
@@ -114,15 +120,17 @@ export default {
     #password{
         margin: 0.5em 2em 1em 0.5em;
     }
-    
+
     span{
         color:red;
         font-weight: bold;
     }
+
 
     @media screen and (min-width:601px) and (max-width:750px) {
         img{
             margin-top:1em;
         }
     }
+
 </style>
