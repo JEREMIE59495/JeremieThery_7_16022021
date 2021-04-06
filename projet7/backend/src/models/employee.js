@@ -25,7 +25,7 @@ Employee.getAllEmployees = (result)=>{
 }
 
 Employee.getOneEmployee = (req,result )=>{
-//    console.log('recup back model emplo L27',req)
+   console.log('recup back model emplo L27',req)
             dbConnect.query('SELECT * FROM employees WHERE id=?',[req],(err,res)=>{
             if(err){
                 console.log('error while fetching employees',err);

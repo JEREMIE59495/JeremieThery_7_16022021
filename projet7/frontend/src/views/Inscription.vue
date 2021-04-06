@@ -1,16 +1,15 @@
 <template>
     <div>
         <div>
+            <img alt="logo groupomania" src="../assets/icon1.png">
             <fieldset>
                 <legend>Formulaire d'inscription</legend>
                 <div class="name">
                     <label for="name">Nom :</label>
                     <input type="text" id="name" name="first_name" v-model="dataSignup.first_name">
-
                     <label for="surname">Prénom :</label>
                     <input type="text" id="surname" name="last_name" v-model="dataSignup.last_name">
                 </div>
-
                 <div class=" mail">
                     <label for="mail">E-mail :</label>
                     <input type="email" id="mail" name="user_mail" v-model="dataSignup.email">
@@ -19,7 +18,6 @@
                     <label for="password">Mot de passe :</label>
                     <input type="password" id="password" name="user_password" v-model="dataSignup.password">
                 </div>
-                
                 <button @click="signupUser" type="submit">S'inscrire</button><br>
                 <small>Déjà inscrit : <router-link to="/Connexion">Connectez-vous !</router-link></small>
             </fieldset>
@@ -44,7 +42,6 @@ export default {
     },
 
     methods:{
-
         signupUser:function(){
             console.log(this.dataSignup)
             if(
@@ -68,6 +65,11 @@ export default {
 }
 </script>
 <style scoped lang="scss">
+ img{
+        margin-top:8em;
+        width:5em;
+    }
+    
     fieldset{
         width: 40%;
         margin-left: auto;
@@ -112,8 +114,15 @@ export default {
     #password{
         margin: 0.5em 2em 1em 0.5em;
     }
+    
     span{
         color:red;
         font-weight: bold;
+    }
+
+    @media screen and (min-width:601px) and (max-width:750px) {
+        img{
+            margin-top:1em;
+        }
     }
 </style>

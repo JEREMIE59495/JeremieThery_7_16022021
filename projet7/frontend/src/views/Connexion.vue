@@ -1,9 +1,9 @@
 <template >
     <div>
         <div class="connexion" >
+            <img alt="logo groupomania" src="../assets/icon1.png">
             <fieldset>
                 <legend>Connexion</legend>
-                
                 <div class=" mail">
                     <label for="email">E-mail :</label>
                     <input type="email" id="email" name="user_mail" v-model="dataLogin.email"><br>
@@ -13,7 +13,7 @@
                     <input type="password" id="password" name="user_password" autocomplete="current-password" v-model="dataLogin.password">
                 </div>
                 <button @click="login" type="submit">Se connecter</button><br>
-                        <small>Pas encore inscrit : <router-link to="/Inscription">enregistrez-vous !</router-link></small>
+                <small>Pas encore inscrit : <router-link to="/Inscription">enregistrez-vous !</router-link></small>
             </fieldset>
         </div>
         <span> {{err}}</span>
@@ -33,8 +33,7 @@ export default {
           err:null
         }
     },
-    methods:{
-        
+    methods:{ 
         login:function(){
             console.log(this.dataLogin)
             if(
@@ -47,12 +46,12 @@ export default {
             .then(response =>{
                 localStorage.setItem('userInfo',response.data.token,)
                 location.replace('http://localhost:8081/Dashboard')
-                console.log(response)
+                console.log( response)
                 console.log(response.data)
             })
             .catch(error =>{
                 this.err = error.response.data.message
-              console.log(this.err);
+                console.log(this.err);
                 // console.log(error.response.data.message);
             })
         } else {  
@@ -64,6 +63,11 @@ export default {
 
 </script>
 <style scoped lang="scss">
+    img{
+        margin-top:8em;
+        width:5em;
+    }
+
     fieldset{
         width: 30%;
         margin-left: auto;
@@ -93,5 +97,11 @@ export default {
     span{
         color:red;
         font-weight: bold;
+    }
+
+    @media screen and (min-width:601px) and (max-width:750px) {
+        img{
+            margin-top:1em;
+        }
     }
 </style>
