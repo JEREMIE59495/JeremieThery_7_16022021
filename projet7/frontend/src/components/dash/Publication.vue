@@ -11,9 +11,12 @@
                 <h4>Votre commentaire</h4>
                 <textarea placeholder="Tapez votre texte ici" v-model="textOfComment"></textarea>
             </div>
-            <button class="bouton_bloc_ajout" @click="closeBlocComment">Annuler</button>        
-            <button class="bouton_bloc_ajout" @click="PublieComment">Publier</button>
-        </div>
+            <div class ='btn_action'>
+                <input type="file" name='image' @change="uploadFile" >
+                <button class="bouton_bloc_ajout" @click="closeBlocComment">Annuler</button>        
+                <button class="bouton_bloc_ajout" @click="PublieComment">Publier</button>
+            </div>
+       </div>
         <!--Titre du groupe -->
         <h1>{{groupPage}}</h1>
         <!--Affichage des commentaires-->
@@ -23,10 +26,11 @@
                 <span class="auteur_publication"><small>par</small> {{publication.auteur}}</span>
             </div>
             <div class='commentaire'>
-                {{publication.comment}}
+                <div class='bloc_commentaire'>{{publication.comment}}</div>
+                <div class='bloc_image'><img :src="publication.image" class="imagePub"></div>  
             </div> 
-            <!-- a controler -->
-            <div class="bloc_admin" v-if='user.password >= 1'>
+            <!-- a controler -->  
+            <div class="bloc_admin" v-if='user.password >=1'>
                 <button class="btn_admin" v-bind:key='index'  @click="nocheck(publication,index)">Supprimer</button>
             </div>
         </div>
@@ -46,11 +50,14 @@ export default {
             publication:true, 
             noValidate :true ,
             index:true,
+            selectedFileName:null,
+            selectedFile:null
         }
     },
 
     computed: {
         ...mapState(['user']),
+        
         infoUser(){
             return this.$store.state.user   
         },  
@@ -64,24 +71,48 @@ export default {
     },
 
     methods:{
+       
         nocheck(index){
             this.publication = this.publication.filter(i=> i !=index)
             console.log(index)
+        },
+// insertion images
+        uploadFile (event) {
+            console.log(event)
+            this.selectedFile = event.target.files[0]
+            this.selectedFileName = event.target.files[0].name
+            console.log(this.selectedFile.name)
         },
 
         PublieComment(){  
             const clicGroup = localStorage.getItem('id_group')   
             const groupId = clicGroup.split(",").slice(0,-1)
-
+            const fd = new FormData();
+            if(this.selectedFile != null &&  this.selectedFileName != null){
+                fd.append('img', this.selectedFile)
+                fd.append('image', this.selectedFileName )
+                fd.append('title', this.titleOfComment)
+                fd.append('comment', this.textOfComment)
+                fd.append('id_groupe',groupId)
+                fd.append('auteur', this.$store.state.user.last_name,)
+            }else{
+                fd.append('title', this.titleOfComment)
+                fd.append('comment', this.textOfComment)
+                fd.append('id_groupe',groupId)
+                fd.append('auteur', this.$store.state.user.last_name,)
+           }
             axios
+                .post('http://localhost:8080/api/publication/',fd,{})
+               // .then((response)=> {console.log('LA', response.data.data)})
+         /*   axios
                 .post('http://localhost:8080/api/publication/',{
                     title:this.titleOfComment,
                     comment:this.textOfComment,
                     id_groupe:groupId,
                     auteur:this.$store.state.user.last_name,
-                //    formData:this.files
+                    image:this.selectedFileName
                 
-                })
+                })*/
                 .then((response)=>{   
                     console.log(response)
                     this.showComment= false
@@ -92,14 +123,14 @@ export default {
     },
     
     mounted(){
-        
         const clicGroup = localStorage.getItem('id_group')   
             const groupId = clicGroup.split(",").slice(0,-1)    
         axios
             .get ('http://localhost:8080/api/publication/'+ groupId)
             .then((response) => {
                 this.publication = response.data.slice().reverse()
-               // console.log(this.publication)
+                console.log(this.publication)
+               
             })
             .catch(error => console.log(error));
     },  
@@ -110,6 +141,14 @@ export default {
         width: 100%;
         height:40em;
         overflow-y:scroll;
+    }
+
+    img {
+        min-width: 0px;
+        min-height:0em;
+        max-width: 12em; 
+        max-height: 9em; 
+        object-fit: cover; 
     }
 
     h1{
@@ -195,18 +234,39 @@ export default {
     }
 
     .commentaire{
+        display:flex;
         padding:0.5em;
         border-top:1px solid black;
     }
 
     .bloc_admin{
         width:100%;
-        text-align:right; 
-        border-top:1px solid black;
+        text-align: right; 
+        border-top: 1px solid black;
+    }
+
+    .bloc_image{
+        margin-top:auto;
+        margin-bottom:auto;
+        margin-left:1em;
+        margin-right:0.5em;
+    }
+
+    .imagePub{
+        box-shadow: 5px 3px 5px grey;
+        border: 1px solid grey;
+        border-radius: 0.2em;
     }
 
     .btn_admin{  
         margin:0.2em 1em 0.2em 1em;
+    }
+
+    .btn_action{
+        display:flex;
+    }
+    button{
+        height:1.6em;
     }
 
     @media  screen and (max-width:420px) {

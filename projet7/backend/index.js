@@ -2,7 +2,7 @@ const express = require ('express');
 //const bodyParser = require('body-parser')
 const app = express();
 
-
+const path = require('path');
 
 const port = process.env.PORT || 8080;
 
@@ -38,5 +38,25 @@ app.listen(port,()=>{
     console.log(`Express server is running at port ${port}`);
 });
 
+//images
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
+/*
+var multer = require ('multer')
 
+var fileStorage = multer.diskStorage({
+    destination:function(req,file,callback){
+        callback(null, './uploads');
+    },
+    filename:function(req,file,callback){
+        const name= file.originalname.split(' ').join('_');
+        callback(null, Date.now() + "--" + name);
+    }
+})
 
+var upload = multer({storage:fileStorage});
+
+app.post("/single",upload.single("image"),(req,res)=>{
+    console.log(req.file)
+    //console.log('test1',req.body)
+res.send('merci')
+})*/

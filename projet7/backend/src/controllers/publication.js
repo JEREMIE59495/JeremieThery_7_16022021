@@ -27,9 +27,16 @@ exports.getOnePublication =(req,res)=>{
 //création new publication
 
 exports.createNewPublication = (req,res)=> {
+    console.log(req.body.image) 
+    if(req.body.image == null){
+    req.body.image = null
+    console.log('1==>',req.body.image)
+    }else {
+        req.body.image = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+    }
     const publicationReqData = new publicationModel(req.body);
     console.log('publicationReqData',publicationReqData);
-   
+console.log(req.body.image)
     if(req.body.constructor === Object && Object.keys(req.body).lenght === 0){
         res.send(400).send({succes:false,message:'merci de remplir tous les champs'})
     }else{

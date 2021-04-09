@@ -1,11 +1,12 @@
 var dbConnect =require('../../config/db.config');
 
+
 const Publication = function(publication){
     this.title = publication.title;
     this.comment = publication.comment;
     this.id_groupe = publication.id_groupe;
     this.auteur = publication.auteur;
-    this.image = publication.formData
+    this.image = publication.image
 }
 
 //get all employee

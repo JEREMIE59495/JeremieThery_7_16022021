@@ -15,7 +15,7 @@ export default new Vuex.Store({
       last_name:'NC',
       email:'NC',
       password:'NC',
-      isAdmin:'NC',
+      isAdmin:'NC'
     },
     changeOption:''
   },
