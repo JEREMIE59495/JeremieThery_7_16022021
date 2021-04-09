@@ -8,6 +8,7 @@
         <button @click ="close" class="Annuler">X</button>
       </div>
       <div class='formProfil' v-if='modifProfil'>
+
         <div class="formulaire">
           <p>Nom :
           <span>  {{user.first_name}}</span>     
@@ -32,6 +33,7 @@
       <div class="modifPassword" v-if='modifPassword'>
         <p>Ancien mot de passe :
           <input type="password"  v-model='password'>
+
         </p>
         <p>Nouveau mot de passe :
             <input id='pass' type="password" v-model='newPassword' placeholder=" 8 caractères minmum" @keyup="ctrlMdp">
@@ -68,7 +70,9 @@ export default {
          // validated:true,
           advance:true,
           general:false,
+
           submitted:""
+
         }    
       },
       computed:{
@@ -137,16 +141,18 @@ export default {
           //modification du profil
      
           axios
-            .put('http://localhost:8080/api/employee/'+ userId,   
-            {
+            .put('http://localhost:8080/api/employee/'+ userId, 
+           {
               first_name:this.first_name,
               last_name:this.last_name,
               email:this.email,
+
               password: this.password,
               //modif mdp
               newPassword:this.newPassword
+
             })
-            .then(response => console.log(response))
+            .then(res => console.log('titi',res))
               this.$emit('closeProfil')
               this.modifyFirstName=false
               this.modifyLastName=false
@@ -258,18 +264,9 @@ export default {
     font-weight: normal;
     font-style: normal;
   }
-/*
-  img{
-    background:pink;
-    width:100%;
-    height:15em;
-  }*/
 
   input{
-    /*width:7em;*/
     margin-left:0.5em;
-   /* border:0.2px solid grey;*/
-   /* border-bottom: 1px solid black;*/
     outline: none;
   }
 

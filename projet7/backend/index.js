@@ -1,7 +1,6 @@
 const express = require ('express');
 //const bodyParser = require('body-parser')
 const app = express();
-
 const path = require('path');
 
 const port = process.env.PORT || 8080;
@@ -27,6 +26,9 @@ const publicationRoutes = require('./src/routes/publication');
 const groupeRoutes = require('./src/routes/groupe');
 const userRoutes= require('./src/routes/user')
 
+//app.use ('/uploads',express.static(path.join(__dirname,'uploads')));
+
+
 //create route employee
 app.use('/api/employee',employeeRoutes)
 app.use('/api/publication',publicationRoutes)
@@ -40,23 +42,3 @@ app.listen(port,()=>{
 
 //images
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
-/*
-var multer = require ('multer')
-
-var fileStorage = multer.diskStorage({
-    destination:function(req,file,callback){
-        callback(null, './uploads');
-    },
-    filename:function(req,file,callback){
-        const name= file.originalname.split(' ').join('_');
-        callback(null, Date.now() + "--" + name);
-    }
-})
-
-var upload = multer({storage:fileStorage});
-
-app.post("/single",upload.single("image"),(req,res)=>{
-    console.log(req.file)
-    //console.log('test1',req.body)
-res.send('merci')
-})*/

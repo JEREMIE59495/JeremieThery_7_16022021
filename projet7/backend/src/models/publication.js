@@ -23,10 +23,12 @@ Publication.getAllPublication = (result)=>{
 }
 
 Publication.getOnepublication = (req,result )=>{
+
     //console.log('recup back model publi L25',req)
     dbConnect.query('SELECT * FROM publication WHERE id_groupe=?',[req],(err,res)=>{
         if(err){
             // console.log(err);
+
             result(null, err);
         }else{    
             result(null,res);
@@ -38,7 +40,9 @@ Publication.getOnepublication = (req,result )=>{
 Publication.createPublication = (publicationReqData, result)=>{
     dbConnect.query('INSERT INTO publication SET ?', publicationReqData,(err,res)=>{
         if(err){
+
         //    console.log('recup back model publi L40',publicationReqData)
+
             console.log('err insertion data');
             result(null,err);
         }else{
