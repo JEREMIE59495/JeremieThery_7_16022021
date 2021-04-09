@@ -1,8 +1,6 @@
-
 <template>	
 	<div class="bloc_profil">
 		<div class= "profil">
-			<div class="photo"></div>
 			<p class= "first_name">{{user.first_name}}</p>
 			<p> {{user.last_name}}</p>	
 		</div>
@@ -48,20 +46,11 @@ export default {
 <style scoped>
 	.profil{
 		height: 4em;
+		padding-left:2em;
 		padding-top: 2em;
 		display:flex;
 	}
 
-	.photo{
-		width: 2em;
-		height: 2em;
-		background: grey;
-		margin-left: 1em;
-		margin-right: 1em;
-		border-radius: 4em;	
-		margin-top:0.5em;
-	}
-	
 	.first_name{
 		text-transform: uppercase;
 		font-weight:bold;

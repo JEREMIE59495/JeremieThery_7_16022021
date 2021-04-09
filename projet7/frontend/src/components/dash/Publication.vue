@@ -143,7 +143,7 @@ export default {
         overflow-y:scroll;
     }
 
-    img {
+    img{
         min-width: 0px;
         min-height:0em;
         max-width: 12em; 
@@ -283,20 +283,38 @@ export default {
             margin-right: 0.5em;
         }
 
+        .commentaire{
+            display:flex;
+            flex-direction: column;
+        }
+
     }
 
     @media  screen and (max-width:600px) {
         .publication{
            margin-top:0em;
         }
+
+        .commentaire{
+            display:flex;
+            flex-direction: column;
+        }
     }
 
     @media  screen and (min-width:601px)and (max-width:750px) {
         .publication{
+            width:96%;
+            margin-top:-7em;
             height:39em;
         }
+
         .addComment{
             margin-right:1.5em;
+        }
+
+        .commentaire{
+            display:flex;
+            flex-direction: column;
         }
     }
 

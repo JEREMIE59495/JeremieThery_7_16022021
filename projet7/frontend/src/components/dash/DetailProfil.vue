@@ -79,7 +79,6 @@ export default {
       }, 
       //click du bouton pour refermer la div
       methods:{ 
-   
         //Pour modifier le mdp
         next(){
           this.modifProfil= false,
@@ -211,14 +210,14 @@ export default {
     background: rgba(240, 242, 245);  
   }
   .formulaire{
-    width:65%;
+    width:100%;
   }
 
   .bloc_avatar{
     width:35%;
     border-right:1px solid grey;
   }
-  #avatar{
+  .avatar{
     background:white;
     width:50%;
     height: 8em;
@@ -226,6 +225,7 @@ export default {
     margin-bottom:0.5em;
     margin-left:auto;
     margin-right:auto;
+    border-radius:0.4em;
     padding:0;
   }
   
@@ -258,12 +258,12 @@ export default {
     font-weight: normal;
     font-style: normal;
   }
-
+/*
   img{
     background:pink;
     width:100%;
     height:15em;
-  }
+  }*/
 
   input{
     /*width:7em;*/
